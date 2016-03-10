@@ -80,7 +80,6 @@ function reset_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('reset pushed\n');
-scriptCommand(handles.user.serial,'RESET');
 
 
 % --- Executes on button press in x_axis_button.
@@ -90,7 +89,7 @@ function x_axis_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('x-axis pushed\n');
 x_axis_popup;
-set(x_axis_popup,'UserData',handles.user.serial);
+set(x_axis_popup,'UserData',get();
 
 % --- Executes on button press in z_axis_button.
 function z_axis_button_Callback(hObject, eventdata, handles)
@@ -99,7 +98,6 @@ function z_axis_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('z-axis pushed\n');
 z_axis_popup;
-set(z_axis_popup,'UserData',handles.user.serial);
 
 % --- Executes on button press in gripper_button.
 function gripper_button_Callback(hObject, eventdata, handles)
@@ -107,8 +105,6 @@ function gripper_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('gripper pushed\n');
-gripper_popup;
-set(gripper_popup,'UserData',handles.user.serial);
 
 % --- Executes on button press in move_button.
 function move_button_Callback(hObject, eventdata, handles)
@@ -117,7 +113,6 @@ function move_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('move pushed\n');
 move_popup;
-set(move_popup,'UserData',handles.user.serial);
 
 % --- Executes on button press in status_button.
 function status_button_Callback(hObject, eventdata, handles)
@@ -125,7 +120,6 @@ function status_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('status pushed\n');
-scriptCommand(handles.user.serial,'STATUS');
 
 % --- Executes on button press in special_move_button.
 function special_move_button_Callback(hObject, eventdata, handles)

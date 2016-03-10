@@ -79,6 +79,7 @@ function extend_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('extend button pushed\n');
+scriptCommand(get(z_axis_popup,'UserData'),sprintf('Z-AXIS EXTEND'));
 
 
 % --- Executes on button press in retract_button.
@@ -87,3 +88,4 @@ function retract_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('retract button pushed\n');
+scriptCommand(get(z_axis_popup,'UserData'),sprintf('Z-AXIS RETRACT'));

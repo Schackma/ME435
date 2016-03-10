@@ -80,7 +80,6 @@ function position_1_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 fprintf('position 1 pushed\n');
-scriptCommand(get(x_axis_popup,'UserData'),sprintf('X-AXIS 1'));
 
 
 % --- Executes on button press in position_2_button.
@@ -89,7 +88,6 @@ function position_2_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('position 2 pushed\n');
-scriptCommand(get(x_axis_popup,'UserData'),sprintf('X-AXIS 2'));
 
 % --- Executes on button press in position_3_button.
 function position_3_button_Callback(hObject, eventdata, handles)
@@ -97,7 +95,6 @@ function position_3_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('position 3 pushed\n');
-scriptCommand(get(x_axis_popup,'UserData'),sprintf('X-AXIS 3'));
 
 % --- Executes on button press in position_4_button.
 function position_4_button_Callback(hObject, eventdata, handles)
@@ -105,7 +102,6 @@ function position_4_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('position 4 pushed\n');
-scriptCommand(get(x_axis_popup,'UserData'),sprintf('X-AXIS 4'));
 
 % --- Executes on button press in position_5_button.
 function position_5_button_Callback(hObject, eventdata, handles)
@@ -113,4 +109,3 @@ function position_5_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('position 5 pushed\n');
-scriptCommand(get(x_axis_popup,'UserData'),sprintf('X-AXIS 5'));
