@@ -87,8 +87,7 @@ function x_axis_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('x-axis pushed\n');
-
-
+x_axis_popup;
 
 % --- Executes on button press in z_axis_button.
 function z_axis_button_Callback(hObject, eventdata, handles)
