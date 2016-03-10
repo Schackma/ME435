@@ -1,4 +1,4 @@
-function s =RobotOpen
+function s = RobotOpen
 clc
 open_ports = instrfind('Type','Serial','Status','open');
 if ~isempty(open_ports)
