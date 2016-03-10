@@ -81,6 +81,8 @@ function pickup_location_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns pickup_location contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from pickup_location
+fprintf('pickup location changed to %d\n',get(hObject,'Value'));
+
 
 % --- Executes during object creation, after setting all properties.
 function pickup_location_CreateFcn(hObject, eventdata, handles)
@@ -103,6 +105,7 @@ function drop_location_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns drop_location contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from drop_location
+fprintf('drop location changed to %d\n',get(hObject,'Value'));
 
 % --- Executes during object creation, after setting all properties.
 function drop_location_CreateFcn(hObject, eventdata, handles)

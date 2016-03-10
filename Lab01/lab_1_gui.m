@@ -110,6 +110,7 @@ function move_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('move pushed\n');
+move_popup;
 
 % --- Executes on button press in status_button.
 function status_button_Callback(hObject, eventdata, handles)
@@ -131,3 +132,4 @@ function exit_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('exit pushed\n');
+delete(lab_1_gui);
