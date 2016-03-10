@@ -79,6 +79,7 @@ function open_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('open pressed\n');
+scriptCommand(get(gripper_popup,'UserData'),sprintf('GRIPPER OPEN'));
 
 
 % --- Executes on button press in close_button.
@@ -87,3 +88,4 @@ function close_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('close pressed\n');
+scriptCommand(get(gripper_popup,'UserData'),sprintf('GRIPPER CLOSE'));

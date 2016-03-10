@@ -133,6 +133,8 @@ function special_move_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('special pushed\n');
+special_move_popup
+set(special_move_popup,'UserData',handles.user.serial);
 
 % --- Executes on button press in exit_button.
 function exit_button_Callback(hObject, eventdata, handles)

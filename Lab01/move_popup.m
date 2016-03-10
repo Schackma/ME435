@@ -128,3 +128,4 @@ function move_button_Callback(hObject, eventdata, handles)
 pickup_loc = get(handles.pickup_location,'Value');
 drop_loc = get(handles.drop_location,'Value');
 fprintf('move from: %d.  move to: %d.\n',pickup_loc,drop_loc);
+scriptCommand(get(move_popup,'UserData'),sprintf('MOVE %d %d',pickup_loc,drop_loc));
