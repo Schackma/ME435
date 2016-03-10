@@ -95,6 +95,7 @@ function z_axis_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('z-axis pushed\n');
+z_axis_popup;
 
 % --- Executes on button press in gripper_button.
 function gripper_button_Callback(hObject, eventdata, handles)
