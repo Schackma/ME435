@@ -22,9 +22,9 @@ locations = [plate1,plate2,openSpace];
 % scriptCommand(s,sprintf('X-AXIS %d',plate2));
 % extend_retract(s,'GRIPPER OPEN');
 
-for i = 1:6
-    scriptCommand(s,sprintf('X-AXIS %d',locations(mod(i,3)-1)));
-    if mod(i,2) == 1
+for i = 0:5
+    scriptCommand(s,sprintf('X-AXIS %d',locations(mod(i,3)+1)));
+    if mod(i,2) == 0
         extend_retract(s,'GRIPPER CLOSE');
     else
         extend_retract(s,'GRIPPER OPEN');
