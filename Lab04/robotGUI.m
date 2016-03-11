@@ -56,7 +56,9 @@ function robotGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 
 % Update handles structure
+jointSliderChange(handles);
 guidata(hObject, handles);
+
 
 % UIWAIT makes robotGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -140,6 +142,7 @@ function angle1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+jointSliderChange(handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -162,6 +165,7 @@ function angle2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+jointSliderChange(handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -184,6 +188,7 @@ function angle3_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+jointSliderChange(handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -206,6 +211,7 @@ function angle4_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+jointSliderChange(handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -228,6 +234,7 @@ function angle5_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+jointSliderChange(handles);
 
 
 % --- Executes during object creation, after setting all properties.
