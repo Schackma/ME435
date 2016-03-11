@@ -2,7 +2,7 @@ function special_move( s,plate1,plate2,openSpace )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-locations = [plate1,plate2,openSpace];
+locations = [plate1,openSpace,plate2];
 
 % scriptCommand(s,sprintf('X-AXIS %d',plate1));
 % extend_retract(s,'GRIPPER CLOSE');

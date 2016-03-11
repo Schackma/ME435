@@ -143,5 +143,4 @@ function exit_button_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('exit pushed\n');
 fclose(handles.user.serial);
-delete(lab_1_gui);
 
