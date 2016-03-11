@@ -54,7 +54,7 @@ function lab_1_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for lab_1_gui
 handles.output = hObject;
-% handles.user.serial = RobotOpen();
+handles.user.serial = RobotOpen();
 
 % Update handles structure
 guidata(hObject, handles);
@@ -125,7 +125,7 @@ function status_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 fprintf('status pushed\n');
-scriptCommand(handles.user.serial,'STATUS');
+scriptCommand(handles.user.serial,'LOADER_STATUS');
 
 % --- Executes on button press in special_move_button.
 function special_move_button_Callback(hObject, eventdata, handles)
