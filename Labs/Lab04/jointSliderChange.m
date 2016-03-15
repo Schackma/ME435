@@ -1,5 +1,4 @@
 function jointSliderChange(handles)
-
 jointAngles(1) = round(get(handles.angle1, 'Value'));
 jointAngles(2) = round(get(handles.angle2, 'Value'));
 jointAngles(3) = round(get(handles.angle3, 'Value'));
