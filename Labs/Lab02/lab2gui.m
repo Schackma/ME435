@@ -23,7 +23,7 @@ function varargout = lab2gui(varargin)
 % Edit the above text to modify the response to help lab2gui
 
 <<<<<<< HEAD
-% Last Modified by GUIDE v2.5 16-Mar-2016 20:55:54
+% Last Modified by GUIDE v2.5 16-Mar-2016 21:00:41
 =======
 % Last Modified by GUIDE v2.5 16-Mar-2016 20:43:04
 >>>>>>> 7728200bc0c8174f62602c88c949a47fc616f83a
@@ -128,13 +128,13 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% —- Executes on button press in checkbox_connect.
-function checkbox_connect_Callback(hObject, eventdata, handles)
-% hObject    handle to checkbox_connect (see GCBO)
+% —- Executes on button press in pushbutton_connect.
+function pushbutton_connect_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_connect (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkbox_connect
+% Hint: get(hObject,'Value') returns toggle state of pushbutton_connect
 
 
 <<<<<<< HEAD
