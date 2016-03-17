@@ -22,7 +22,7 @@ function varargout = lab2gui(varargin)
 
 % Edit the above text to modify the response to help lab2gui
 
-% Last Modified by GUIDE v2.5 16-Mar-2016 20:33:08
+% Last Modified by GUIDE v2.5 16-Mar-2016 20:43:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,6 +54,9 @@ function lab2gui_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for lab2gui
 handles.output = hObject;
+handles.user.connected = false;
+resetParams(handles);
+
 
 % Update handles structure
 guidata(hObject, handles);
@@ -78,6 +81,8 @@ function pushbutton_reset_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.edit_response,'String',handles.user.robot.reset);
+resetparams;
 
 
 % --- Executes on button press in pushbutton_toggleZ.
@@ -85,6 +90,9 @@ function pushbutton_toggleZ_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_toggleZ (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.edit_response,'String',handles.user.robot,extend);
+
+
 
 
 % --- Executes on button press in pushbutton_toggleGrip.
@@ -124,3 +132,10 @@ function checkbox_connect_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox_connect
+
+
+% --- Executes when selected object is changed in uibuttongroup_xaxis.
+function uibuttongroup_xaxis_SelectionChangedFcn(hObject, eventdata, handles)
+% hObject    handle to the selected object in uibuttongroup_xaxis 
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
