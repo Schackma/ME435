@@ -7,6 +7,8 @@ set(findobj('Style','radiobutton'),'Enable','on');
 set(findobj('Style','edit'),'Enable','on');
 
 set(handles.edit_comPort,'Enable','off');
+set(handles.radiobutton_reality,'Enable','off');
+set(handles.radiobutton_simulation,'Enable','off');
 
 
 end

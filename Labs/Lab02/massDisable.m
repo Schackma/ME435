@@ -8,6 +8,8 @@ set(findobj('Style','edit'),'Enable','off');
 
 set(handles.edit_comPort,'Enable','on');
 set(handles.pushbutton_connect,'Enable','on');
+set(handles.radiobutton_reality,'Enable','on');
+set(handles.radiobutton_simulation,'Enable','on');
 
 
 

@@ -150,10 +150,19 @@ function pushbutton_connect_Callback(hObject, eventdata, handles)
 
 
 if(~handles.user.connected)
-    handles.user.robot = PlateLoaderSim(str2double(get(handles.edit_comPort,'String')));
-    massEnable(handles);
-    set(handles.uitable_delays,'Data',handles.user.robot.defaultTimeTable(:,2:4));
-    set(hObject,'String','Disconnect');
+    if all(ismember(get(handles.edit_comPort,'String'),'1234567890'))
+        if get(handles.radiobutton_simulation,'Value') == 1
+            handles.user.robot = PlateLoaderSim(str2double(get(handles.edit_comPort,'String')));
+        else
+            handles.user.robot = PlateLoader(str2double(get(handles.edit_comPort,'String')));
+        end
+        massEnable(handles);
+        set(handles.uitable_delays,'Data',handles.user.robot.defaultTimeTable(:,2:4));
+        set(hObject,'String','Disconnect');
+        set(handles.edit_comPort,'BackgroundColor','w');
+    else
+        set(handles.edit_comPort,'BackgroundColor','r');
+    end
     
 else
     handles.user.robot.shutdown;
@@ -377,3 +386,21 @@ function pushbutton_status_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.text_status,'String',handles.user.robot.getStatus);
+
+
+% --- Executes on button press in radiobutton_simulation.
+function radiobutton_simulation_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton_simulation (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton_simulation
+
+
+% --- Executes on button press in radiobutton_reality.
+function radiobutton_reality_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton_reality (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton_reality
