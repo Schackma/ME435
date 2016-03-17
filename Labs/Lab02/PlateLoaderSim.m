@@ -17,6 +17,13 @@ classdef PlateLoaderSim < hgsetget
             0 30 0 30 0
             0 30 30 0 0
             0 30 20 60 0];
+        calTimeTable = [
+            0 120 75 100 0
+            0 0 130 100 0
+            0 100 0 100 0
+            0 80 90 0 0
+            0 80 75 80 0
+            ];
     end
 
     methods

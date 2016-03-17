@@ -110,10 +110,10 @@ function pushbutton_toggleGrip_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 if(handles.user.gripperOpen)
     set(hObject,'String','Open');
-    set(handles.text_status,'String',handles.user.robot.open);
+    set(handles.text_status,'String',handles.user.robot.close);
 else
     set(hObject,'String','Close');
-    set(handles.text_status,'String',handles.user.robot.close);
+    set(handles.text_status,'String',handles.user.robot.open);
 end
 handles.user.gripperOpen = ~handles.user.gripperOpen;
 guidata(hObject,handles);
@@ -157,7 +157,7 @@ if(~handles.user.connected)
             handles.user.robot = PlateLoader(str2double(get(handles.edit_comPort,'String')));
         end
         massEnable(handles);
-        set(handles.uitable_delays,'Data',handles.user.robot.defaultTimeTable(:,2:4));
+        set(handles.uitable_delays,'Data',handles.user.robot.calTimeTable(:,2:4));
         set(hObject,'String','Disconnect');
         set(handles.edit_comPort,'BackgroundColor','w');
     else
