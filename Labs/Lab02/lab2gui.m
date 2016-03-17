@@ -152,10 +152,13 @@ function pushbutton_connect_Callback(hObject, eventdata, handles)
 if(~handles.user.connected)
     handles.user.robot = PlateLoaderSim(str2double(get(handles.edit_comPort,'String')));
     massEnable(handles);
+    set(handles.uitable_delays,'Data',handles.user.robot.defaultTimeTable(:,2:4));
+    set(hObject,'String','Disconnect');
     
 else
     handles.user.robot.shutdown;
     massDisable(handles);
+    set(hObject,'String','Connect');
 end
 handles.user.connected = ~handles.user.connected;
 guidata(hObject,handles);
@@ -165,8 +168,7 @@ function uibuttongroup_xaxis_SelectionChangedFcn(hObject, eventdata, handles)
 % hObject    handle to the selected object in uibuttongroup_xaxis 
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
+set(handles.text_status,'String',handles.user.robot.x(str2double(get(hObject,'String'))));
 
 function edit_moveFrom_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_moveFrom (see GCBO)
@@ -175,6 +177,7 @@ function edit_moveFrom_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit_moveFrom as text
 %        str2double(get(hObject,'String')) returns contents of edit_moveFrom as a double
+
 
 
 % —- Executes during object creation, after setting all properties.
@@ -195,6 +198,24 @@ function pushbutton_move_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_move (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+pos1 = floor(str2double(get(handles.edit_moveFrom,'String')));
+pos2 = floor(str2double(get(handles.edit_moveTo,'String')));
+
+
+if(pos1 >5)
+    set(handles.edit_moveFrom,'BackgroundColor','r');
+elseif(pos2>5)
+    set(handles.edit_moveTo,'BackgroundColor','r');
+else
+    set(handles.edit_moveFrom,'BackgroundColor','w');
+    set(handles.edit_moveTo,'BackgroundColor','w');
+    set(handles.text_status,'String',handles.user.robot.movePlate(pos1,pos2));
+end
+
+
+
 
 
 
@@ -225,6 +246,33 @@ function pushbutton_swap_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_swap (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+pos1 = floor(str2double(get(handles.edit_plate1,'String')));
+pos2 = floor(str2double(get(handles.edit_plate2,'String')));
+pos3 = floor(str2double(get(handles.edit_empty,'String')));
+
+if pos1 == pos2
+    set(handles.edit_plate1,'BackgroundColor','r');
+    set(handles.edit_plate2,'BackgroundColor','r');
+elseif pos1 == pos3
+    set(handles.edit_plate1,'BackgroundColor','r');
+    set(handles.edit_empty,'BackgroundColor','r');
+elseif pos2 ==pos3
+    set(handles.edit_plate2,'BackgroundColor','r');
+    set(handles.edit_empty,'BackgroundColor','r');
+elseif pos1 > 5
+    set(handles.edit_plate1,'BackgroundColor','r');
+elseif pos2 > 5
+    set(handles.edit_plate2,'BackgroundColor','r');
+elseif pos3 > 5
+    set(handles.edit_empty,'BackgroundColor','r');
+else
+    set(handles.edit_plate1,'BackgroundColor','w');
+    set(handles.edit_plate2,'BackgroundColor','w');
+    set(handles.edit_empty,'BackgroundColor','w');
+    swap(handles.user.robot,pos1,pos2,pos3,handles.text_status);
+end
+
 
 
 % --- Executes on button press in pushbutton_spinFigure.
@@ -308,6 +356,10 @@ function pushbutton_setTimeDelays_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_setTimeDelays (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+zero = zeros(5,1);
+time = [zero get(handles.uitable_delays,'Data') zero];
+set(handles.text_status,'String',handles.user.robot.setTimeValues(time));
+
 
 
 % --- Executes on button press in pushbutton_resetTimeDelays.
@@ -315,6 +367,8 @@ function pushbutton_resetTimeDelays_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_resetTimeDelays (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.text_status,'String',handles.user.robot.resetDefaultTimes);
+set(handles.uitable_delays, 'Data',handles.user.robot.defaultTimeTable(:,2:4));
 
 
 % --- Executes on button press in pushbutton_status.
@@ -322,3 +376,4 @@ function pushbutton_status_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_status (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.text_status,'String',handles.user.robot.getStatus);
