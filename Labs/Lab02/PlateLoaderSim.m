@@ -9,6 +9,7 @@ classdef PlateLoaderSim < hgsetget
         isZAxisExtended    % true = Z-AXIS Extended,  false = Z-AXIS Retracted
         isGripperClosed    % true = GRIPPER closed,   false = GRIPPER open
         isPlatePresent     % true = Plate in gripper, false = No plate
+        plateLocations
     end
     properties (Constant = true)
         % Default time delay values used in Beckman Coulter Plate Loader
@@ -34,6 +35,7 @@ classdef PlateLoaderSim < hgsetget
             obj.isZAxisExtended = false;
             obj.isGripperClosed = true;
             obj.isPlatePresent = false;
+            obj.plateLocations = [0,0,0,0,0];
         end
         function response = reset(obj)
             % Reset robot
@@ -98,7 +100,7 @@ classdef PlateLoaderSim < hgsetget
             end
             moveCommand = sprintf('MOVE %d %d\n',startPos,endPos);
             fprintf(moveCommand); %send to robot (console)
-            obj.xAxisPosition = 3;
+            obj.xAxisPosition = endPos;
             obj.isZAxisExtended = false;
             obj.isGripperClosed = true;
             obj.isPlatePresent = false;

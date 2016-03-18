@@ -11,6 +11,7 @@ classdef PlateLoader < hgsetget
         isZAxisExtended
         isGripperClosed
         isPlatePresent
+        plateLocations
     end
     properties (Constant = true)
         defaultTimeTable = [0 60 20 30 0
@@ -49,6 +50,7 @@ classdef PlateLoader < hgsetget
             %   Maybe use the GRIPPER_STATUS command and ready string reply
             obj.isPlatePresent = false;
             obj.setTimeValues(obj.calTimeTable);
+            obj.plateLocations = [0,0,0,0,0];
         end
         function response = reset(obj)
             % Reset robot
@@ -124,7 +126,7 @@ classdef PlateLoader < hgsetget
                 obj.isGripperClosed = false;
                 obj.isPlatePresent = false;
             else
-                obj.xAxisPosition = 3;
+                obj.xAxisPosition = endPos;
                 obj.isZAxisExtended = false;
                 obj.isGripperClosed = true;
                 obj.isPlatePresent = false;

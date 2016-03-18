@@ -55,10 +55,7 @@ clc
 handles.output = hObject;
 handles.user.connected = false;
 handles = resetParams(handles);
-
 handles = massDisable(handles);
-
-
 % Update handles structure
 guidata(hObject, handles);
 
@@ -84,6 +81,7 @@ function pushbutton_reset_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.text_status,'String',handles.user.robot.reset);
 handles = resetParams(handles);
+drawImage(handles);
 guidata(hObject,handles);
 
 
@@ -100,6 +98,7 @@ else
     set(handles.text_status,'String',handles.user.robot.extend);
 end
 handles.user.extended = ~handles.user.extended;
+drawImage(handles);
 guidata(hObject,handles);
 
 
@@ -116,6 +115,7 @@ else
     set(handles.text_status,'String',handles.user.robot.open);
 end
 handles.user.gripperOpen = ~handles.user.gripperOpen;
+drawImage(handles);
 guidata(hObject,handles);
 
 function edit_comPort_Callback(hObject, eventdata, handles)
@@ -170,6 +170,7 @@ else
     set(hObject,'String','Connect');
 end
 handles.user.connected = ~handles.user.connected;
+drawImage(handles);
 guidata(hObject,handles);
 
 
@@ -178,6 +179,7 @@ function uibuttongroup_xaxis_SelectionChangedFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.text_status,'String',handles.user.robot.x(str2double(get(hObject,'String'))));
+drawImage(handles);
 
 function edit_moveFrom_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_moveFrom (see GCBO)
@@ -222,11 +224,8 @@ else
     set(handles.edit_moveTo,'BackgroundColor','w');
     set(handles.text_status,'String',handles.user.robot.movePlate(pos1,pos2));
 end
-
-
-
-
-
+drawImage(handles);
+guidata(hObject,handles);
 
 function edit_moveTo_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_moveTo (see GCBO)
@@ -281,16 +280,23 @@ else
     set(handles.edit_empty,'BackgroundColor','w');
     swap(handles.user.robot,pos1,pos2,pos3,handles.text_status);
 end
-
-
+drawImage(handles);
 
 % --- Executes on button press in pushbutton_spinFigure.
 function pushbutton_spinFigure_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_spinFigure (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
+theta = 0; dTheta = 0.01;
+img = getimage(handles.axes_display);
+while(theta < 2*pi+0.02)
+    theta = theta + dTheta 
+    H = [cos(theta),-sin(theta),0;sin(theta),cos(theta),0;0,0,1;]; %Rotation Mat    
+    tform = affine2d(H);
+    cla(handles.axes_display);
+    image(imwarp(img,tform), 'Parent', handles.axes_display);
+    drawnow;
+end
 
 function edit_plate1_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_plate1 (see GCBO)
@@ -402,5 +408,17 @@ function radiobutton_reality_Callback(hObject, eventdata, handles)
 % hObject    handle to radiobutton_reality (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
 % Hint: get(hObject,'Value') returns toggle state of radiobutton_reality
+
+function [] = drawImage(handles)
+% %handles.user.gripperOpen
+gripperStatus = 1;
+if(handles.user.robot.isPlatePresent)
+    gripperStatus = 3;
+elseif(~handles.user.robot.isGripperClosed)
+    gripperStatus = 2;
+end
+handles.user.robot.xAxisPosition
+updateDisplay(handles.axes_display, handles.user.robot.plateLocations, ...
+    handles.user.robot.isZAxisExtended, handles.user.robot.xAxisPosition, ...
+    gripperStatus);
