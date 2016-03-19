@@ -100,7 +100,7 @@ classdef PlateLoaderSim < hgsetget
             end
             moveCommand = sprintf('MOVE %d %d\n',startPos,endPos);
             fprintf(moveCommand); %send to robot (console)
-            obj.xAxisPosition = endPos;
+            obj.xAxisPosition = 3;
             obj.isZAxisExtended = false;
             obj.isGripperClosed = true;
             obj.isPlatePresent = false;

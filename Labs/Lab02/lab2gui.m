@@ -418,7 +418,48 @@ if(handles.user.robot.isPlatePresent)
 elseif(~handles.user.robot.isGripperClosed)
     gripperStatus = 2;
 end
-handles.user.robot.xAxisPosition
+handles.user.robot.xAxisPosition;
 updateDisplay(handles.axes_display, handles.user.robot.plateLocations, ...
     handles.user.robot.isZAxisExtended, handles.user.robot.xAxisPosition, ...
     gripperStatus);
+
+
+% --- Executes on mouse press over axes background.
+function axes_display_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axes_display (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+% --- Executes on mouse press over figure background.
+function arm_gui_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to arm_gui (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% switch eventdata.Key
+%     case 'rightarrow'
+%         if(handles.user.robot.xAxisPosition ~=5)
+%             set(handles.text_status,'String',handles.user.robot.x(handles.user.robot.xAxisPosition+1));
+%         end
+%     case 'leftarrow'
+%         if(handles.user.robot.xAxisPosition ~=1)
+%             set(handles.text_status,'String',handles.user.robot.x(handles.user.robot.xAxisPosition-1));
+%         end
+%     case 'uparrow'
+%         if(handles.user.extended)
+%             set(handles.pushbutton_toggleZ,'String','Extend');
+%             set(handles.text_status,'String',handles.user.robot.retract);
+%             handles.user.extended = ~handles.user.extended;
+%         end
+%     case 'downarrow'
+%         if(~handles.user.extended)
+%         set(pushbutton_toggleZ,'String','Retract');
+%         set(handles.text_status,'String',handles.user.robot.extend);
+%         handles.user.extended = ~handles.user.extended;
+%         end
+%     otherwise
+% end
+% setRadioButton(handles);
+% drawImage(handles);
+

@@ -1,0 +1,29 @@
+mcc -C -o lab2_runner -W WinMain:lab2_runner -T link:exe -d C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2_runner\for_testing -v C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2gui.m 
+Compiler version: 6.1 (R2015b)
+
+Dependency analysis by REQUIREMENTS.
+
+[Warning: Adding path "C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02" to
+Compiler path instance.] 
+[] 
+Parsing file "C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2gui.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 9 temporary MEX authorization files.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4430267_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4430673_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4422252_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4415543_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4413811_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4428317_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e4410995_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e442207_7748.auth'.
+Removing: 'C:\Users\schackma\AppData\Local\Temp\mathworks_tmp_01e449856_7748.auth'.
+Generating file "C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2_runner\for_testing\readme.txt".
+Packaging...
+Adding custom icon C:\Program Files\MATLAB\R2015b\toolbox\compiler\Resources\default_icon.ico to C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2_runner\for_testing\lab2_runner.exe.
+Attempting to embed the CTF archive into the application C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2_runner\for_testing\lab2_runner.exe.
+Finished embedding CTF archive. Deleting the external CTF archive.
+Creating the bundle...
+Web based installer created at C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab02\lab2_runner\for_redistribution\MyAppInstaller_web.exe.
+Packaging complete.
+Elapsed packaging time was: 1 minutes and 1 seconds.
