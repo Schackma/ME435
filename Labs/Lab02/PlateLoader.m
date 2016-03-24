@@ -126,7 +126,7 @@ classdef PlateLoader < hgsetget
                 obj.isGripperClosed = false;
                 obj.isPlatePresent = false;
             else
-                obj.xAxisPosition = endPos;
+                obj.xAxisPosition = 3;
                 obj.isZAxisExtended = false;
                 obj.isGripperClosed = true;
                 obj.isPlatePresent = false;
