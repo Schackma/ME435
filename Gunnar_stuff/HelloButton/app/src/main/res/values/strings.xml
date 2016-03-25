@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Hello Button</string>
+
+    <string name="message_start">You have clicked the button 0 times</string>
+    <string name="message_format">You have clicked the button %1$d times</string>
+    <string name="button_text">Press Me!</string>
+    <string name="reset_text">Reset</string>
+
+</resources>
