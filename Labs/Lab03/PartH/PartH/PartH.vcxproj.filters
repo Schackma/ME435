@@ -15,11 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PartC.ino" />
+    <None Include="PartH.ino" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="__vm\.PartC.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
+ 
 </Project>

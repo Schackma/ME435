@@ -18,10 +18,15 @@ Author:	horvegc
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(14, 15, 16, 17, 18, 19, 20); // you've changed pin numbers!
+int age = 21;
 
 void setup() {
 	lcd.begin(16, 2);
-	lcd.print("hello, world!");
+	lcd.print("Matthew  Schack is!");
+	pinMode(PIN_LEFT_BUTTON, INPUT_PULLUP);
+	pinMode(PIN_RIGHT_BUTTON, INPUT_PULLUP);
+	attachInterrupt(0, int0_isr, FALLING);
+	attachInterrupt(1, int1_isr, FALLING);
 }
 
 void loop() {
@@ -30,5 +35,13 @@ void loop() {
 	// If line = 1 that’s the second row, since counting begins with 0
 	lcd.setCursor(0, 1);
 	// print the number of seconds since reset:
-	lcd.print(millis() / 1000);
+	lcd.print(age);
+	lcd.print(" years old.");
+}
+
+void int0_isr() {
+	age++;
+}
+void int1_isr() {
+	age--;
 }
