@@ -17,5 +17,9 @@
   <ItemGroup>
     <None Include="golf_ball_stand_test.ino" />
   </ItemGroup>
- 
+  <ItemGroup>
+    <ClInclude Include="__vm\.golf_ball_stand_test.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
