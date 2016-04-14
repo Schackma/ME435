@@ -22,7 +22,6 @@ function varargout = robotGUI(varargin)
 
 % Edit the above text to modify the response to help robotGUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2016 16:47:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -57,6 +56,7 @@ handles.output = hObject;
 
 % Update handles structure
 jointSliderChange(handles);
+handles.userData.connected = false;
 guidata(hObject, handles);
 
 
@@ -103,6 +103,12 @@ function openButton_Callback(hObject, eventdata, handles)
 % hObject    handle to openButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+s = serial(sprintf('COM%s',get(handles.COMPort,'String')),'BAUDRATE',9600);
+fopen(s);
+handles.userData.file = s;
+set(handles.COMPort,'Enable','off');
+handles.userData.connected = true;
+guidata(hObject,handles);
 
 
 % --- Executes on button press in closeButton.
@@ -110,21 +116,29 @@ function closeButton_Callback(hObject, eventdata, handles)
 % hObject    handle to closeButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+fclose(handles.userData.file);
+set(handles.COMPort,'Enable','on');
+handles.userData.connected = false;
+guidata(hObject,handles);
 
 
 % --- Executes on slider movement.
-function slider10_Callback(hObject, eventdata, handles)
-% hObject    handle to slider10 (see GCBO)
+function gripper_Callback(hObject, eventdata, handles)
+% hObject    handle to gripper (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('GRIPPER %d',get(hObject,'Value')));
+end
 
 
 % --- Executes during object creation, after setting all properties.
-function slider10_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to slider10 (see GCBO)
+function gripper_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to gripper (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -143,6 +157,10 @@ function angle1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -166,7 +184,10 @@ function angle2_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
-
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+end
 
 % --- Executes during object creation, after setting all properties.
 function angle2_CreateFcn(hObject, eventdata, handles)
@@ -189,6 +210,10 @@ function angle3_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -212,6 +237,10 @@ function angle4_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -235,6 +264,10 @@ function angle5_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+end
 
 
 % --- Executes during object creation, after setting all properties.
