@@ -237,6 +237,7 @@ function angle4_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 jointSliderChange(handles);
+sprintf('POSITION %s',get(handles.jointAngles, 'String'))
 if(handles.userData.connected)
     s = handles.userData.file;
     fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
