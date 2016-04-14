@@ -16,10 +16,11 @@
 
 package com.example.android.snake;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
+import android.view.KeyEvent;
 import android.widget.TextView;
+
+import edu.rosehulman.me435.AccessoryActivity;
 
 /**
  * Snake: a simple game that everyone can enjoy.
@@ -30,7 +31,7 @@ import android.widget.TextView;
  * faster. Running into yourself or the walls will end the game.
  * 
  */
-public class Snake extends Activity {
+public class Snake extends AccessoryActivity {
 
     private SnakeView mSnakeView;
     
@@ -77,4 +78,17 @@ public class Snake extends Activity {
         outState.putBundle(ICICLE_KEY, mSnakeView.saveState());
     }
 
+    @Override
+    protected void onCommandReceived(String recievedCommand) {
+        super.onCommandReceived(recievedCommand);
+        if (recievedCommand.equalsIgnoreCase("U")) {
+            mSnakeView.onKeyDown(KeyEvent.KEYCODE_DPAD_UP, null);
+        } else if (recievedCommand.equalsIgnoreCase("D")) {
+            mSnakeView.onKeyDown(KeyEvent.KEYCODE_DPAD_DOWN, null);
+        } else if (recievedCommand.equalsIgnoreCase("L")) {
+            mSnakeView.onKeyDown(KeyEvent.KEYCODE_DPAD_LEFT, null);
+        } else if (recievedCommand.equalsIgnoreCase("R")) {
+            mSnakeView.onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
+        }
+    }
 }
