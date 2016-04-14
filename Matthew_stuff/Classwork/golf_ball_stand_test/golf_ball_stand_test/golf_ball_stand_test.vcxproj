@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
-    <RootNamespace>PartH</RootNamespace>
-    <ProjectName>PartH</ProjectName>
+    <RootNamespace>golf_ball_stand_test</RootNamespace>
+    <ProjectName>golf_ball_stand_test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,8 +47,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab03\PartH\PartH;C:\Program Files (x86)\Arduino\libraries\LiquidCrystal\src;C:\Program Files (x86)\Arduino\libraries\LiquidCrystal\src\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\qyknt5s4.4vh\Micro Platforms\default\debuggers;C:\Users\schackma\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Program Files (x86)\Arduino\libraries\LiquidCrystal\src;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\qyknt5s4.4vh\Micro Platforms\default\debuggers;C:\Users\schackma\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Users\schackma\Documents\MATLAB\ME435\Labs\Lab03\PartH\PartH\__vm\.PartH.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\golf_ball_stand_test\golf_ball_stand_test;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\qyknt5s4.4vh\Micro Platforms\default\debuggers;C:\Users\schackma\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\golf_ball_stand_test\golf_ball_stand_test\__vm\.golf_ball_stand_test.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10606;ARDUINO_AVR_ADK;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -59,14 +59,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab03\PartH\PartH;C:\Program Files (x86)\Arduino\libraries\LiquidCrystal\src;C:\Program Files (x86)\Arduino\libraries\LiquidCrystal\src\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\galdq0su.jr0\Micro Platforms\default\debuggers;C:\Users\horvegc\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab03\PartH\PartH\__vm\.PartH.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <PreprocessorDefinitions>__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10608;ARDUINO_AVR_ADK;ARDUINO_ARCH_AVR;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\golf_ball_stand_test\golf_ball_stand_test;C:\Users\schackma\Documents\Arduino\libraries\GolfBallStand;C:\Users\schackma\Documents\Arduino\libraries\GolfBallStand\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\qyknt5s4.4vh\Micro Platforms\default\debuggers;C:\Users\schackma\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;C:\Users\schackma\Documents\Arduino\libraries\GolfBallStand;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\qyknt5s4.4vh\Micro Platforms\default\debuggers;C:\Users\schackma\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,14 +72,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="PartH.ino">
+    <None Include="golf_ball_stand_test.ino">
       <FileType>CppCode</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.PartH.vsarduino.h" />
+    <ClInclude Include="__vm\.golf_ball_stand_test.vsarduino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM26" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
