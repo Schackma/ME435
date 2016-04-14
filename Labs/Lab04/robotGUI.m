@@ -22,7 +22,7 @@ function varargout = robotGUI(varargin)
 
 % Edit the above text to modify the response to help robotGUI
 
-% Last Modified by GUIDE v2.5 11-Mar-2016 13:25:36
+% Last Modified by GUIDE v2.5 14-Apr-2016 16:47:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -247,3 +247,45 @@ function angle5_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes on button press in set1_button.
+function set1_button_Callback(hObject, eventdata, handles)
+% hObject    handle to set1_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in set2_button.
+function set2_button_Callback(hObject, eventdata, handles)
+% hObject    handle to set2_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in set3_button.
+function set3_button_Callback(hObject, eventdata, handles)
+% hObject    handle to set3_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in goto1_button.
+function goto1_button_Callback(hObject, eventdata, handles)
+% hObject    handle to goto1_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in goto2_button.
+function goto2_button_Callback(hObject, eventdata, handles)
+% hObject    handle to goto2_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in goto3_button.
+function goto3_button_Callback(hObject, eventdata, handles)
+% hObject    handle to goto3_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
