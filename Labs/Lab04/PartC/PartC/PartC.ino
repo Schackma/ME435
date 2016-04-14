@@ -27,7 +27,6 @@ void setup(){
 	robotCom.registerGripperCallback(gripperCallback);
 	lcd.begin(16, 2);
 	lcd.clear();
-	lcd.print("test");
 
 }
 
