@@ -108,9 +108,9 @@ function openButton_Callback(hObject, eventdata, handles)
 % hObject    handle to openButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-fclose(instrfind);
-
+if(~isempty(instrfind))
+    fclose(instrfind);
+end
 s = serial(sprintf('COM%s',get(handles.COMPort,'String')),'BAUDRATE',9600);
 fopen(s);
 handles.user.file = s;

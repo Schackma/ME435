@@ -23,8 +23,16 @@ void setup()
 	servo_5.attach(8);
 	servo_gripper.attach(6);
 	servo_5.write(0);
+	servo_2.write(100);
+	servo_gripper.write(180);
 }
 
 void loop() {
+	//servo_gripper.write(45);
+	//delay(2000);
+	//servo_gripper.write(90);
+	//delay(2000);
+	//servo_gripper.write(135);
+	//delay(2000);
 
 }
