@@ -57,8 +57,10 @@ handles.output = hObject;
 % Update handles structure
 jointSliderChange(handles);
 handles.userData.connected = false;
+set(handles.goto1_button,'Enable','off');
+set(handles.goto2_button,'Enable','off');
+set(handles.goto3_button,'Enable','off');
 guidata(hObject, handles);
-
 
 % UIWAIT makes robotGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -287,38 +289,51 @@ function set1_button_Callback(hObject, eventdata, handles)
 % hObject    handle to set1_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+savePosition(handles,handles.disp1_text);
+set(handles.goto1_button,'Enable','on');
 
 % --- Executes on button press in set2_button.
 function set2_button_Callback(hObject, eventdata, handles)
 % hObject    handle to set2_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+savePosition(handles,handles.disp2_text);
+set(handles.goto2_button,'Enable','on');
 
 % --- Executes on button press in set3_button.
 function set3_button_Callback(hObject, eventdata, handles)
 % hObject    handle to set3_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+savePosition(handles,handles.disp3_text);
+set(handles.goto3_button,'Enable','on');
 
 % --- Executes on button press in goto1_button.
 function goto1_button_Callback(hObject, eventdata, handles)
 % hObject    handle to goto1_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.disp1_text, 'String')));
+end
 
 % --- Executes on button press in goto2_button.
 function goto2_button_Callback(hObject, eventdata, handles)
 % hObject    handle to goto2_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.disp2_text, 'String')));
+end
 
 % --- Executes on button press in goto3_button.
 function goto3_button_Callback(hObject, eventdata, handles)
 % hObject    handle to goto3_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+if(handles.userData.connected)
+    s = handles.userData.file;
+    fprintf(s,sprintf('POSITION %s',get(handles.disp3_text, 'String')));
+end
