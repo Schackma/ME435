@@ -1,18 +1,6 @@
-function initializeDhAxes
-
-% Begin: Setup for this stand alone version that will not go into the GUI.
-close all
-handles.axes_arm = axes;
-%handles.user.jointAngles = [-1 90 0 -90 90];  % Home position.
-%handles.user.jointAngles = [0 0 0 0 0];       % Zero position.
-handles.user.jointAngles = [-5 135 20 -45 90]; %arbitrary position
-
-%  End : Setup for this stand alone version that will not go into the GUI.
-
-% Begin: Code that can go into your GUI's opening function.
-clc
-
+function initializeDhAxes(handles)
 % Prepare the arm axes
+cla(handles.axes_arm);
 view(handles.axes_arm, [-50 -50 50]);
 axis(handles.axes_arm, [-13 10 -8 8 -3 14.5]);
 grid on
@@ -50,10 +38,11 @@ function updateArm(hObject, handles)
 % DONE: Make sure the handles.user.jointAngles values are set.
 
 % DONE: Create the five homogeneous transformation matrices.
-[A1,A2,A3,A4,A5] = makeHomogeneousTransformations(handles.user.jointAngles(1),...
-    handles.user.jointAngles(2),handles.user.jointAngles(3),handles.user.jointAngles(4),...
-    handles.user.jointAngles(5));
 
+angles = handles.user.jointAngles;
+angles = str2num(angles);
+
+[A1,A2,A3,A4,A5] = makeHomogeneousTransformations(angles(1),angles(2),angles(3),angles(4),angles(5));
 
 % DONE: Use the A matricies to form the T0_n matricies.
 T0_1 = A1;
