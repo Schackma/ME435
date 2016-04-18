@@ -270,3 +270,12 @@ paket-files/
 *.sln.iml
 
 /Matthew_stuff/Quizes/
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures

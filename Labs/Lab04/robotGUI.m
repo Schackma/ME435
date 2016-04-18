@@ -52,6 +52,7 @@ function robotGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to robotGUI (see VARARGIN)
 
 % Choose default command line output for robotGUI
+clc;
 handles.output = hObject;
 
 % Update handles structure
@@ -60,6 +61,7 @@ handles.userData.connected = false;
 set(handles.goto1_button,'Enable','off');
 set(handles.goto2_button,'Enable','off');
 set(handles.goto3_button,'Enable','off');
+set(handles.closeButton,'Enable','off');
 guidata(hObject, handles);
 
 % UIWAIT makes robotGUI wait for user response (see UIRESUME)
@@ -109,7 +111,11 @@ s = serial(sprintf('COM%s',get(handles.COMPort,'String')),'BAUDRATE',9600);
 fopen(s);
 handles.userData.file = s;
 set(handles.COMPort,'Enable','off');
+set(handles.closeButton,'Enable','on');
+set(handles.openButton,'Enable','off');
 handles.userData.connected = true;
+pause(1000);
+fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
 guidata(hObject,handles);
 
 
@@ -120,6 +126,8 @@ function closeButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 fclose(handles.userData.file);
 set(handles.COMPort,'Enable','on');
+set(handles.closeButton,'Enable','off');
+set(handles.openButton,'Enable','on');
 handles.userData.connected = false;
 guidata(hObject,handles);
 
