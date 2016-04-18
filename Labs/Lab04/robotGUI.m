@@ -111,7 +111,9 @@ function openButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-fclose(instrfind);
+if(~isempty(instrfind))
+    fclose(instrfind);
+end
 
 s = serial(sprintf('COM%s',get(handles.COMPort,'String')),'BAUDRATE',9600);
 fopen(s);
@@ -121,7 +123,7 @@ set(handles.closeButton,'Enable','on');
 set(handles.openButton,'Enable','off');
 handles.user.connected = true;
 pause(1);
-fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 guidata(hObject,handles);
 
 % --- Executes on button press in closeButton.
@@ -174,7 +176,7 @@ jointSliderChange(handles);
 handles.user.connected
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 end
 
 
@@ -201,7 +203,7 @@ function angle2_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 end
 
 % --- Executes during object creation, after setting all properties.
@@ -227,7 +229,7 @@ function angle3_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 end
 
 
@@ -254,7 +256,7 @@ function angle4_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 end
 
 
@@ -281,7 +283,7 @@ function angle5_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles_text, 'String')));
 end
 
 
@@ -330,6 +332,8 @@ if(handles.user.connected)
     s = handles.user.file;
     fprintf(s,sprintf('POSITION %s',get(handles.disp1_text, 'String')));
 end
+updateSliders(handles,get(handles.disp1_text, 'String'));
+jointSliderChange(handles);
 
 % --- Executes on button press in goto2_button.
 function goto2_button_Callback(hObject, eventdata, handles)
@@ -340,6 +344,8 @@ if(handles.user.connected)
     s = handles.user.file;
     fprintf(s,sprintf('POSITION %s',get(handles.disp2_text, 'String')));
 end
+updateSliders(handles,get(handles.disp2_text, 'String'));
+jointSliderChange(handles);
 
 % --- Executes on button press in goto3_button.
 function goto3_button_Callback(hObject, eventdata, handles)
@@ -350,3 +356,5 @@ if(handles.user.connected)
     s = handles.user.file;
     fprintf(s,sprintf('POSITION %s',get(handles.disp3_text, 'String')));
 end
+updateSliders(handles,get(handles.disp3_text, 'String'));
+jointSliderChange(handles);
