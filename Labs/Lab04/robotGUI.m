@@ -55,6 +55,8 @@ function robotGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 clc;
 handles.output = hObject;
 
+addpath ./GuiArm_Lab4;
+
 % Update handles structure
 jointSliderChange(handles);
 handles.user.connected = false;
@@ -119,7 +121,7 @@ set(handles.closeButton,'Enable','on');
 set(handles.openButton,'Enable','off');
 handles.user.connected = true;
 pause(1);
-fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 guidata(hObject,handles);
 
 % --- Executes on button press in closeButton.
@@ -148,7 +150,6 @@ if(handles.user.connected)
     fprintf(s,sprintf('GRIPPER %d',get(hObject,'Value')));
 end
 
-
 % --- Executes during object creation, after setting all properties.
 function gripper_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to gripper (see GCBO)
@@ -173,7 +174,7 @@ jointSliderChange(handles);
 handles.user.connected
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 end
 
 
@@ -200,7 +201,7 @@ function angle2_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 end
 
 % --- Executes during object creation, after setting all properties.
@@ -226,7 +227,7 @@ function angle3_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 end
 
 
@@ -253,7 +254,7 @@ function angle4_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 end
 
 
@@ -280,7 +281,7 @@ function angle5_Callback(hObject, eventdata, handles)
 jointSliderChange(handles);
 if(handles.user.connected)
     s = handles.user.file;
-    fprintf(s,sprintf('POSITION %s',get(handles.jointAngles, 'String')));
+    fprintf(s,sprintf('POSITION %s',get(handles.user.jointAngles, 'String')));
 end
 
 

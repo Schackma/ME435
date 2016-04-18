@@ -6,5 +6,6 @@ jointAngles(4) = round(get(handles.angle4, 'Value'));
 jointAngles(5) = round(get(handles.angle5, 'Value'));
 
 jointAnglesStr = sprintf('%d %d %d %d %d',jointAngles);
-set(handles.jointAngles, 'String', jointAnglesStr);
-
+set(handles.jointAngles_text,'string',jointAnglesStr); 
+handles.user.jointAngles = jointAnglesStr;
+initializeDhAxes(handles);
