@@ -24,7 +24,7 @@ void setup()
 	servo_gripper.attach(6);
 	servo_5.write(0);
 	servo_2.write(100);
-	servo_gripper.write(180);
+	servo_gripper.write(20);
 }
 
 void loop() {
