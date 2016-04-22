@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_fd25e89bb63457cb1becf9c899a5e7825fd924b9.jar" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_9cf1df143cc0326b98901ef0d43aca193d40c153.jar" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_65982b5348e2488c23214176088939544f8693f8.jar" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Gunnar_stuff\Android\OneGoodGpsReading\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1_777719a72cc6818fdf1e9c87194877c3e0811a46.jar" />
+    </item>
+
+</items>
