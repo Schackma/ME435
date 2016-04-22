@@ -14,6 +14,7 @@ import java.util.Timer;
 import me435.AccessoryActivity;
 import me435.FieldGps;
 import me435.FieldGpsListener;
+import me435.FieldOrientation;
 import me435.FieldOrientationListener;
 
 public class OneGoodGpsReadingActivity extends AccessoryActivity implements FieldGpsListener, FieldOrientationListener {
@@ -29,6 +30,13 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     private Timer mTimer;
     public static final int LOOP_INTERVAL_MS = 100;
 
+    private FieldOrientation mFieldOrientation;
+    public enum State{
+        READY_FOR_MISSION, FIGURE_8_RED_SCRIPT, FIGURE_8_BLUE_SCRIPT, WAITING_FOR_GPS, DRIVING_HOME, SEEKING_HOME,WAITING_FOR_PICKUP
+    }
+    private State mState = State.READY_FOR_MISSION;
+    private long mStateStartTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +47,17 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
         mGpsInfoTextView = (TextView) findViewById(R.id.gps_info_textview);
         mSensorOrientationTextView = (TextView) findViewById(R.id.orientation_textview);
         mFieldGps = new FieldGps(this);
+        mFieldOrientation = new FieldOrientation(this);
+        setState(State.READY_FOR_MISSION);
     }
 
 
     public void handleRedTeamGo(View view) {
-        Toast.makeText(this, "You clicked Red Team Go!", Toast.LENGTH_SHORT).show();
+        if(mState == State.READY_FOR_MISSION) { setState(State.FIGURE_8_RED_SCRIPT); }
     }
 
     public void handleBlueTeamGo(View view) {
-        Toast.makeText(this, "You clicked Blue Team Go!", Toast.LENGTH_SHORT).show();
+        if(mState == State.READY_FOR_MISSION) { setState(State.FIGURE_8_BLUE_SCRIPT); }
     }
 
     public void handleFakeGps(View view) {
@@ -55,8 +65,8 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     }
 
     public void handleMissionComplete(View view) {
-        Toast.makeText(this, "You clicked Mission Complete!", Toast.LENGTH_SHORT).show();
-        sendCommand("CUSTOM: gunnar is dumb!");
+        if(mState == State.WAITING_FOR_PICKUP) { setState(State.READY_FOR_MISSION); }
+        sendCommand("CUSTOM: schack is dumb!");
     }
 
     @Override
@@ -75,7 +85,7 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
         if (heading > -180.0 && heading <= 180.0) {
             gpsInfo += getString(R.string.degrees_format,heading);
             mSensorOrientationTextView.setText((int) heading + "°");
-//            mFieldOrientation.setCurrentFieldHeading(heading);
+            mFieldOrientation.setCurrentFieldHeading(heading);
             mCurrentGpsHeading = heading;
         }else{
             gpsInfo +=" ?°";
@@ -93,20 +103,108 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     @Override
     protected void onStart() {
         super.onStart();
+        mFieldOrientation.registerListener(this);
 //        mFieldGps.requestLocationUpdates(this);
-//        mFieldOrientation.registerListener(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mFieldGps.removeUpdates();
-//        mFieldOrientation.unregisterListener();
+        mFieldOrientation.unregisterListener();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         mFieldGps.requestLocationUpdates(this);
+    }
+
+    private void setState(State newState){
+        mStateStartTime = System.currentTimeMillis();
+        mCurrentStateTextView.setText(newState.name());
+
+        switch(newState) {
+            case READY_FOR_MISSION:
+                break;
+            case FIGURE_8_RED_SCRIPT:
+                break;
+            case FIGURE_8_BLUE_SCRIPT:
+                break;
+            case WAITING_FOR_GPS:
+                break;
+            case DRIVING_HOME:
+                break;
+            case SEEKING_HOME:
+                break;
+            case WAITING_FOR_PICKUP:
+                break;
+        }
+
+        mState = newState;
+
+    }
+
+    private long getStateTimeMs(){
+        return System.currentTimeMillis()-mStateStartTime;
+    }
+
+    private void runRedScript() {
+        Toast.makeText(this, "Red", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 175 FORWARD 200");
+
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(OneGoodGpsReadingActivity.this, "Driving", Toast.LENGTH_SHORT).show();
+                sendCommand("WHEEL SPEED FORWARD 150 FORWARD 175");
+            }
+        }, 2000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("WHEEL SPEED FORWARD 150 FORWARD 150");
+                setState(State.WAITING_FOR_GPS);
+            }
+        }, 4000);
+    }
+
+    private void runBlueScript() {
+        Toast.makeText(this, "Blue", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 200 FORWARD 175");
+
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(OneGoodGpsReadingActivity.this, "Driving", Toast.LENGTH_SHORT).show();
+                sendCommand("WHEEL SPEED FORWARD 175 FORWARD 150");
+            }
+        }, 2000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("WHEEL SPEED FORWARD 150 FORWARD 150");
+                setState(State.WAITING_FOR_GPS);
+            }
+        }, 4000);
+    }
+
+    private void runHomeScript() {
+        Toast.makeText(this, "Driving", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 150 FORWARD 250");
+
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(OneGoodGpsReadingActivity.this, "Home", Toast.LENGTH_SHORT).show();
+            }
+        }, 3000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("WHEEL SPEED BRAKE 0 BRAKE 0");
+                setState(State.WAITING_FOR_PICKUP);
+            }
+        }, 5000);
     }
 }
