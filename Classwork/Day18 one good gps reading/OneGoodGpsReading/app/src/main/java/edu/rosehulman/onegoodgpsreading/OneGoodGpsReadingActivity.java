@@ -1,6 +1,5 @@
 package edu.rosehulman.onegoodgpsreading;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,7 +9,9 @@ import android.widget.Toast;
 
 import java.util.Timer;
 
-public class OneGoodGpsReadingActivity extends Activity {
+import me435.AccessoryActivity;
+
+public class OneGoodGpsReadingActivity extends AccessoryActivity {
     // Various constants and member variable names.
     private static final String TAG = "OneGoodGps";
     private static final double NO_HEADING_KNOWN = 360.0;
@@ -48,5 +49,12 @@ public class OneGoodGpsReadingActivity extends Activity {
 
     public void handleMissionComplete(View view) {
         Toast.makeText(this, "You clicked Mission Complete!", Toast.LENGTH_SHORT).show();
+        sendCommand("CUSTOM Our Team Rocks!");
+    }
+
+    @Override
+    protected void onCommandReceived(String receivedCommand) {
+        super.onCommandReceived(receivedCommand);
+        Toast.makeText(this, "Received: "+receivedCommand, Toast.LENGTH_SHORT).show();
     }
 }
