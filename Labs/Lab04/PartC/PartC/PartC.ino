@@ -6,12 +6,13 @@
 
 #include <Servo.h> 
 #include <ArmServos.h>
+#include <ArmServosSpeedControlled.h>
 #include <RobotAsciiCom.h>
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(14, 15, 16, 17, 18, 19, 20); // you've changed pin numbers!
 
-ArmServos robotArm;
+ArmServosSpeedControlled robotArm;
 
 RobotAsciiCom robotCom;
 
@@ -34,6 +35,7 @@ void loop() {
 	if (Serial.available() > 0) {
 		robotCom.handleRxByte(Serial.read());
 	}
+	robotArm.updateServos();
 }
 
 
@@ -71,6 +73,8 @@ void jointAngleCallback(byte jointNumber, int jointAngle) {
 // Called when a GRIPPER command is received.
 void gripperCallback(int gripperDistance) {
 	// Inform ArmServo of the gripper command.
+	Serial.println("gripper called");
+	Serial.println(gripperDistance);
 	robotArm.setGripperDistance(gripperDistance);
 }
 
