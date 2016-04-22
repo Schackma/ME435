@@ -18,6 +18,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Field GPS"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="x:"
                 />
             <TextView
@@ -71,5 +78,40 @@
                 android:text="Set X-Axis"
                 android:onClick="handleSetxAxis" />
         </TableRow>
+        <TableRow><TextView></TextView></TableRow>
+        <TableRow android:layout_width="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Field Orientation Sensor" />
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heading:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/sendor_heading_textview"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SET HEADING TO 0"
+                android:onClick="handleSetHeadingTo0"/>
+
+            <ToggleButton
+
+                android:textOn="       RESET TO GPS HEADING"
+                android:textOff="DON'T RESET TO GPS HEADING"
+                android:onClick="handleToggle"/>
+        </TableRow>
+
+
+
     </TableLayout>
 </RelativeLayout>
