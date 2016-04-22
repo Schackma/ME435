@@ -3,6 +3,7 @@
     package="edu.rosehulman.onegoodgpsreading" >
 
     <uses-sdk android:minSdkVersion="15" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
