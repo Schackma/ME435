@@ -10,12 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 import me435.AccessoryActivity;
 import me435.FieldGps;
 import me435.FieldGpsListener;
 import me435.FieldOrientation;
 import me435.FieldOrientationListener;
+import me435.NavUtils;
 
 public class OneGoodGpsReadingActivity extends AccessoryActivity implements FieldGpsListener, FieldOrientationListener {
     // Various constants and member variable names.
@@ -29,6 +31,10 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     private Handler mCommandHandler = new Handler();
     private Timer mTimer;
     public static final int LOOP_INTERVAL_MS = 100;
+    public static final int LOWEST_DESIRABLE_DUTY_CYCLE = 150;
+    public static final int LEFT_PWM_VALUE_FOR_STRAIGHT = 245;
+    public static final int RIGHT_PWM_VALUE_FOR_STRAIGHT = 255;
+
 
     private FieldOrientation mFieldOrientation;
     public enum State{
@@ -61,12 +67,14 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     }
 
     public void handleFakeGps(View view) {
-        Toast.makeText(this, "You clicked Fake GPS Signal", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "You clicked Fake GPS Signal", Toast.LENGTH_SHORT).show();
+        onLocationChanged(40,10,135,null);
     }
 
     public void handleMissionComplete(View view) {
         if(mState == State.WAITING_FOR_PICKUP) { setState(State.READY_FOR_MISSION); }
-        sendCommand("CUSTOM: schack is dumb!");
+        sendCommand("CUSTOM: gunnar is dumb!");
+        mGpsInfoTextView.setText("---");
     }
 
     @Override
@@ -87,6 +95,9 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
             mSensorOrientationTextView.setText((int) heading + "°");
             mFieldOrientation.setCurrentFieldHeading(heading);
             mCurrentGpsHeading = heading;
+            if(mState == State.WAITING_FOR_GPS){
+                setState(State.DRIVING_HOME);
+            }
         }else{
             gpsInfo +=" ?°";
         }
@@ -104,7 +115,18 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
     protected void onStart() {
         super.onStart();
         mFieldOrientation.registerListener(this);
-//        mFieldGps.requestLocationUpdates(this);
+        mFieldGps.requestLocationUpdates(this);
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        loop();
+                    }
+                });
+            }
+        }, 0, LOOP_INTERVAL_MS);
     }
 
     @Override
@@ -112,6 +134,8 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
         super.onStop();
         mFieldGps.removeUpdates();
         mFieldOrientation.unregisterListener();
+        mTimer.cancel();
+        mTimer = null;
     }
 
     @Override
@@ -126,18 +150,23 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
 
         switch(newState) {
             case READY_FOR_MISSION:
+                sendCommand("WHEEL SPEED BRAKE 0 BRAKE 0");
                 break;
             case FIGURE_8_RED_SCRIPT:
+                runRedScript();
                 break;
             case FIGURE_8_BLUE_SCRIPT:
+                runBlueScript();
                 break;
             case WAITING_FOR_GPS:
                 break;
             case DRIVING_HOME:
+                runHomeScript();
                 break;
             case SEEKING_HOME:
                 break;
             case WAITING_FOR_PICKUP:
+                sendCommand("WHEEL SPEED BRAKE 0 BRAKE 0");
                 break;
         }
 
@@ -207,4 +236,51 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
             }
         }, 5000);
     }
+
+    public void loop(){
+        mStateTimeTextView.setText(""+getStateTimeMs()/1000);
+        switch (mState) {
+            case READY_FOR_MISSION:
+                break;
+            case FIGURE_8_RED_SCRIPT:
+                break;
+            case FIGURE_8_BLUE_SCRIPT:
+                break;
+            case WAITING_FOR_GPS:
+                if(getStateTimeMs() > 5000){
+                    setState(State.SEEKING_HOME);
+                }
+                break;
+            case DRIVING_HOME:
+                break;
+            case SEEKING_HOME:
+                seekTargetAt(0,0);
+                if(getStateTimeMs() > 8000){
+                    setState(State.WAITING_FOR_PICKUP);
+                }
+                break;
+            case WAITING_FOR_PICKUP:
+                if(getStateTimeMs() > 8000){
+                    setState(State.SEEKING_HOME);
+                }
+                break;
+        }
+    }
+
+    private void seekTargetAt(double xTarget, double yTarget) {
+        int leftDutyCycle = LEFT_PWM_VALUE_FOR_STRAIGHT;
+        int rightDutyCycle = RIGHT_PWM_VALUE_FOR_STRAIGHT;
+        double targetHeading = NavUtils.getTargetHeading(mCurrentGpsX, mCurrentGpsY, xTarget, yTarget);
+        double leftTurnAmount = NavUtils.getLeftTurnHeadingDelta(mCurrentSensorHeading, targetHeading);
+        double rightTurnAmount = NavUtils.getRightTurnHeadingDelta(mCurrentSensorHeading, targetHeading);
+        if (leftTurnAmount < rightTurnAmount) {
+            leftDutyCycle = LEFT_PWM_VALUE_FOR_STRAIGHT - (int)leftTurnAmount; // Using a VERY simple plan. :)
+            leftDutyCycle = Math.max(leftDutyCycle, LOWEST_DESIRABLE_DUTY_CYCLE);
+        } else {
+            rightDutyCycle = RIGHT_PWM_VALUE_FOR_STRAIGHT - (int)rightTurnAmount; // Could also scale it.
+            rightDutyCycle = Math.max(rightDutyCycle, LOWEST_DESIRABLE_DUTY_CYCLE);
+        }
+        sendCommand("WHEEL SPEED FORWARD " + leftDutyCycle + " FORWARD " + rightDutyCycle);
+    }
+
 }
