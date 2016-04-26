@@ -282,5 +282,4 @@ public class OneGoodGpsReadingActivity extends AccessoryActivity implements Fiel
         }
         sendCommand("WHEEL SPEED FORWARD " + leftDutyCycle + " FORWARD " + rightDutyCycle);
     }
-
 }
