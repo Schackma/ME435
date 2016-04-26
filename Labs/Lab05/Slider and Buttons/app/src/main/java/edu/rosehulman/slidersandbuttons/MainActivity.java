@@ -1,6 +1,5 @@
 package edu.rosehulman.slidersandbuttons;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,7 +11,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements OnSeekBarChangeListener {
+import me435.AccessoryActivity;
+
+public class MainActivity extends AccessoryActivity implements OnSeekBarChangeListener {
     private ArrayList<SeekBar> mSeekBars = new ArrayList<SeekBar>();
     private TextView mJointAnglesTextView;
     private TextView mGripperDistanceTextView;
@@ -54,15 +55,20 @@ public class MainActivity extends Activity implements OnSeekBarChangeListener {
     // ------------------------ Button Listeners ------------------------
     public void handleHomeClick(View view) {
         updateSlidersForPosition(0, 90, 0, -90, 90);
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        String command = getString(R.string.position_command,0,90,0,-90,90);
+        sendCommand(command);
     }
 
     public void handlePosition1Click(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        updateSlidersForPosition(0, 0, 0, 0, 0);
+        String command = getString(R.string.position_command,0,0,0,0,0);
+        sendCommand(command);
     }
 
     public void handlePosition2Click(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        updateSlidersForPosition(0, 45, 0, -45, 45);
+        String command = getString(R.string.position_command,0,45,0,-45,45);
+        sendCommand(command);
     }
 
     public void handleScript1Click(View view) {
@@ -149,7 +155,7 @@ public class MainActivity extends Activity implements OnSeekBarChangeListener {
                 break;
         }
         // Uncomment this line to send the slider command.
-//		sendCommand(command);
+		sendCommand(command);
     }
 
     @Override
