@@ -30,12 +30,12 @@ public class MainActivity extends AccessoryActivity implements OnSeekBarChangeLi
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mJointAnglesTextView = (TextView) findViewById(R.id.joint_angles_textview);
         mGripperDistanceTextView = (TextView) findViewById(R.id.gripper_distance_textview);
-        mSeekBars.add((SeekBar)findViewById(R.id.gripper_seek_bar)); // Gripper index 0.
-        mSeekBars.add((SeekBar)findViewById(R.id.joint_1_seek_bar)); // Joints index 1-5
-        mSeekBars.add((SeekBar)findViewById(R.id.joint_2_seek_bar));
-        mSeekBars.add((SeekBar)findViewById(R.id.joint_3_seek_bar));
-        mSeekBars.add((SeekBar)findViewById(R.id.joint_4_seek_bar));
-        mSeekBars.add((SeekBar)findViewById(R.id.joint_5_seek_bar));
+        mSeekBars.add((SeekBar) findViewById(R.id.gripper_seek_bar)); // Gripper index 0.
+        mSeekBars.add((SeekBar) findViewById(R.id.joint_1_seek_bar)); // Joints index 1-5
+        mSeekBars.add((SeekBar) findViewById(R.id.joint_2_seek_bar));
+        mSeekBars.add((SeekBar) findViewById(R.id.joint_3_seek_bar));
+        mSeekBars.add((SeekBar) findViewById(R.id.joint_4_seek_bar));
+        mSeekBars.add((SeekBar) findViewById(R.id.joint_5_seek_bar));
         for (SeekBar seekBar : mSeekBars) {
             seekBar.setOnSeekBarChangeListener(this);
         }
@@ -72,7 +72,7 @@ public class MainActivity extends AccessoryActivity implements OnSeekBarChangeLi
     }
 
     public void handleScript1Click(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        junkScript();
     }
 
     public void handleScript2Click(View view) {
@@ -163,4 +163,35 @@ public class MainActivity extends AccessoryActivity implements OnSeekBarChangeLi
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {}
 
+    @Override
+    protected void onCommandReceived(String receivedCommand) {
+        super.onCommandReceived(receivedCommand);
+
+        Toast.makeText(this, "Received: " + receivedCommand, Toast.LENGTH_SHORT).show();
+        if (receivedCommand.equalsIgnoreCase("BALL_PRESENT")) {
+            junkScript();
+        }
+    }
+
+    public void junkScript() {
+        sendCommand("GRIPPER 10");
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("GRIPPER 60");
+            }
+        }, 1000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("GRIPPER 10");
+            }
+        }, 3000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendCommand("GRIPPER 50");
+            }
+        }, 4000);
+    }
 }
