@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\SimpleFsm\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e4199a6369b74d5b28ebb0ecd85bdbd3bf6f537c">
+        <dex dex="C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\SimpleFsm\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1bd6df6c2e446f4b5469e9d6849513e8e48cd433\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\SimpleFsm\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="fb40c8c229567bca1e32893f28edde2ea9a93afe">
+        <dex dex="C:\Users\schackma\Documents\ME435\Matthew_stuff\Classwork\SimpleFsm\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d6257ee5a3a7de04985b54a6daace0fd4dfc928c\classes.dex" />
+    </item>
+
+</items>
