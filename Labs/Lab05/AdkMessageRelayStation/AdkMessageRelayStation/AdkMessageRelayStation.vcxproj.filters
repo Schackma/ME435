@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lab5_Arduino.ino" />
+    <None Include="AdkMessageRelayStation.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.Lab5_Arduino.vsarduino.h">
+    <ClInclude Include="__vm\.AdkMessageRelayStation.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
