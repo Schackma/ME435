@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lab5_Arduino.ino" />
+    <None Include="AdkBoardWheelCurrentCalibration.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.Lab5_Arduino.vsarduino.h">
+    <ClInclude Include="__vm\.AdkBoardWheelCurrentCalibration.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

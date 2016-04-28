@@ -84,28 +84,29 @@ public class MainActivity extends AccessoryActivity implements OnSeekBarChangeLi
     }
 
     public void handleStopClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED BRAKE 0 BRAKE 0");
     }
 
     public void handleForwardClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 100 FORWARD 100");
     }
 
     public void handleBackClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED REVERSE 100 REVERSE 100");
     }
 
     public void handleLeftClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 75 FORWARD 200");
     }
 
     public void handleRightClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+        sendCommand("WHEEL SPEED FORWARD 200 FORWARD 75");
     }
 
     public void handleBatteryClick(View view) {
-        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "TODO: Implement button", Toast.LENGTH_SHORT).show();
         // Need to send BATTERY VOLTAGE REQUEST
+        sendCommand("BATTERY VOLTAGE REQUEST");
         // Toast all replies.  Arduino will reply with a BATTERY VOLTAGE REPLY.
         // Receive messages will arrive via onCommandReceived
     }
