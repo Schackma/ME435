@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="81cd5e75a36b1e1ca6ffea4efc16e6271da3df5f">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_2c7f74030950560bd806bc9d8d3fd38004931931\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_d97919f6c8da5e235ee7a36f5b268a1cbc23fbe3\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_65316854f57981db0cce1dc22f6de78f3178552e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_00babec0718d9540f143494c3d5a194352ffb6a2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_d7792232858366f35f4ce142c16427dd364acb0c\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_1c3aa23c20cb489d1b91ca58ce52d10131adfc1f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_c31dad1ac4334f743e7f8a3c0ac5d20b79c8b4c4\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="46c2b3d0fab97fffe77a599cb18472e4ceb1ded1">
+        <dex dex="C:\Users\horvegc\Documents\Spring\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_2582b40ede40cc1d7db733a33c9e7602ac4e5226\classes.dex" />
+    </item>
+
+</items>

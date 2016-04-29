@@ -1,13 +1,33 @@
+/*
+TODO: redifine restPos so that it's not just 0's
+TODO: actually call removeBallAtLocation from main script
+TODO: ensure that LEFT, CENTER, and RIGHT are actually defined as the correct values
+TODO: test code on physical robot
+ */
+
 package edu.rosehulman.golfballdelivery;
 
 import android.os.Handler;
 import android.widget.Toast;
 
-import edu.rosehulman.golfballdelivery.GolfBallDeliveryActivity.BallColor;
 import me435.NavUtils;
 import me435.RobotActivity;
 
 public class Scripts {
+
+    private int LEFT = 1;
+    private int CENTER = 2;
+    private int RIGHT = 3;
+
+    private int home[] = {0,90,0,-90,90};
+    private int restPos[] = {0,0,0,0,0};
+
+    private int killRight[] = {-19,119,-90,-147,96};
+    private int killMid[] = {6,119,-90,-147,96};
+    private int killLeft[] = {39,119,-90,-147,96};
+
+    private int boop[] = { -43,119,-90,-147,96 };
+    private int boopLeft[] = {79,119,-90,-147,96};
 
     /** Reference to the primary activity. */
     private GolfBallDeliveryActivity mGolfBallDeliveryActivity;
@@ -87,26 +107,55 @@ public class Scripts {
 
     /** Removes a ball from the golf ball stand. */
     public void removeBallAtLocation(final int location) {
-        // TODO: Replace with a script that might actually remove a ball. :)
 
         mGolfBallDeliveryActivity.sendCommand("ATTACH 111111"); // Just in case
+        mGolfBallDeliveryActivity.sendCommand("GRIPPER 50");    // Just in case
+
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mGolfBallDeliveryActivity.sendCommand("POSITION 83 90 0 -90 90");
+                mGolfBallDeliveryActivity.sendCommand(String.format("POSITION %d %d %d %d %d",home[0], home[1], home[2], home[3], home[4], home[5]));
             }
         }, 10);
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mGolfBallDeliveryActivity.sendCommand("POSITION 90 141 -60 -180 169");
+                if(location == RIGHT) {
+                    sendPos(killRight);
+                } else if (location == CENTER) {
+                    sendPos(killMid);
+                } else if (location == LEFT) {
+                    sendPos(killLeft);
+                }
             }
         }, 2000);
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mGolfBallDeliveryActivity.setLocationToColor(location, BallColor.NONE);
+                if(location == LEFT) {
+                    sendPos(boopLeft);
+                } else {
+                    sendPos(boop);
+                }
+                mGolfBallDeliveryActivity.setLocationToColor(location, GolfBallDeliveryActivity.BallColor.NONE);
             }
-        }, ARM_REMOVAL_TIME_MS);
+        }, 4000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendPos(restPos);
+            }
+        }, 5000);
+        mCommandHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendPos(home);
+                //actually change state
+            }
+        }, 7000);
+    }
+
+    private void sendPos(int toSend[]) {
+        mGolfBallDeliveryActivity.sendCommand(String.format("POSITION %d %d %d %d %d",toSend[0], toSend[1], toSend[2], toSend[3], toSend[4], toSend[5]));
     }
 }
