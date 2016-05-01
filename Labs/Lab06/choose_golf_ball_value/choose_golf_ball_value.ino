@@ -3,27 +3,6 @@
 GolfBallStand stand;
 int ballColor_1, ballColor_2, ballColor_3;
 
-int[] location1_red = [1023,440,851,977,408];
-int[] location1_green = [1023,731,602,933,481];
-int[] location1_blue = [1023,731,636,862,480];
-int[] location1_yellow = [1019,227,368,899,175];
-int[] location1_black = [1022,902,881,985,774];
-int[] location1_white = [1007,227,315,655,156];
-
-int[] location2_red = [1022,639,826,969,558];
-int[] location2_green = [1022,901,653,868,579];
-int[] location2_blue = [1022,639,826,969,558];
-int[] location2_yellow = [1020,440,380,906,273];
-int[] location2_black = [1022,967,863,976,801];
-int[] location2_white = [1010,389,290,661,207];
-
-int[] location3_red = [1023,654,965,932,597];
-int[] location3_green = [1023,853,825,802,617];
-int[] location3_blue = [1023,875,873,659,561];
-int[] location3_yellow = [1016,412,652,761,329];
-int[] location3_black = [1022,912,944,855,758];
-int[] location3_white = [1022,404,580,404,240];
-
 void setup() {
   Serial.begin(9600);
   stand.setLedState(LED_RED, LOCATION_3, LED_FRONT);
