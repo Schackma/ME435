@@ -91,7 +91,7 @@ class GolfBallStand
     int determineBallColor(int location);
   private:
 	  double calcBallValue(int foundArray[], int valueArray[]);
-	  int findMin(int values[]);
+	  int findMin(double values[]);
   protected:
     void _init(void);
 };

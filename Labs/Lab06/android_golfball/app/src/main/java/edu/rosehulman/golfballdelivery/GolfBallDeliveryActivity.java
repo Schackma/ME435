@@ -353,6 +353,19 @@ public class GolfBallDeliveryActivity extends RobotActivity {
             if (currentLocationsBallColor == BallColor.WHITE) {
                 mWhiteBallLocation = i + 1;
             }
+            if(mOnRedTeam){
+                if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
+                    mFarBallLocation = i+1;
+                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
+                    mNearBallLocation = i+1;
+                }
+            }else{
+                if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
+                    mNearBallLocation = i+1;
+                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
+                    mFarBallLocation = i+1;
+                }
+            }
         }
 
         Log.d(TAG, "Near ball is position " + mNearBallLocation + " so drive to " + mNearBallGpsY);
@@ -431,22 +444,22 @@ public class GolfBallDeliveryActivity extends RobotActivity {
      */
     public void handlePerformBallTest(View view) {
         Toast.makeText(this, "Sent a command to Arduino to perform a ball test.  Waiting for a reply", Toast.LENGTH_SHORT).show();
-//        sendCommand("CUSTOM Do a ball test");
+        sendCommand("CUSTOM Do a ball test");
 
         // Send a mock reply from the Arduino manually
-        onCommandReceived("1R");
-        mCommandHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onCommandReceived("2W");
-            }
-        }, 1000);
-        mCommandHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onCommandReceived("3B");
-            }
-        }, 2000);
+//        onCommandReceived("1R");
+//        mCommandHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                onCommandReceived("2W");
+//            }
+//        }, 1000);
+//        mCommandHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                onCommandReceived("3B");
+//            }
+//        }, 2000);
     }
 
 

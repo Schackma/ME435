@@ -1,7 +1,7 @@
 /*
 TODO: redifine restPos so that it's not just 0's
-TODO: actually call removeBallAtLocation from main script
-TODO: ensure that LEFT, CENTER, and RIGHT are actually defined as the correct values
+DONE: actually call removeBallAtLocation from main script
+DONE: ensure that LEFT, CENTER, and RIGHT are actually defined as the correct values
 TODO: test code on physical robot
  */
 
@@ -114,7 +114,7 @@ public class Scripts {
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mGolfBallDeliveryActivity.sendCommand(String.format("POSITION %d %d %d %d %d",home[0], home[1], home[2], home[3], home[4], home[5]));
+                sendPos(home);
             }
         }, 10);
         mCommandHandler.postDelayed(new Runnable() {
@@ -143,7 +143,8 @@ public class Scripts {
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                sendPos(restPos);
+//                sendPos(restPos);
+                sendPos(home);
             }
         }, 5000);
         mCommandHandler.postDelayed(new Runnable() {
@@ -156,6 +157,6 @@ public class Scripts {
     }
 
     private void sendPos(int toSend[]) {
-        mGolfBallDeliveryActivity.sendCommand(String.format("POSITION %d %d %d %d %d",toSend[0], toSend[1], toSend[2], toSend[3], toSend[4], toSend[5]));
+        mGolfBallDeliveryActivity.sendCommand(String.format("POSITION %d %d %d %d %d",toSend[0], toSend[1], toSend[2], toSend[3], toSend[4]));
     }
 }

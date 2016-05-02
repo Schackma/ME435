@@ -4,15 +4,15 @@
 
 int location1_red[5] = { 1023,440,851,977,408 };
 int location1_green[5] = { 1023,731,602,933,481 };
-int location1_blue[5] = { 1023,731,636,862,480 };
+int location1_blue[5] = { 1023,716,636,862,480 };
 int location1_yellow[5] = { 1019,227,368,899,175 };
 int location1_black[5] = { 1022,902,881,985,774 };
 int location1_white[5] = { 1007,227,315,655,156 };
 
 int location2_red[5] = { 1022,639,826,969,558 };
-int location2_green[5] = { 1022,901,653,868,579 };
-int location2_blue[5] = { 1022,639,826,969,558 };
-int location2_yellow[5] = { 1020,440,380,906,273 };
+int location2_green[5] = { 1022,901,571,937,524 };
+int location2_blue[5] = { 1022,913,653,868,579 };
+int location2_yellow[5] = { 1020,444,380,906,273 };
 int location2_black[5] = { 1022,967,863,976,801 };
 int location2_white[5] = { 1010,389,290,661,207 };
 
@@ -20,7 +20,7 @@ int location3_red[5] = { 1023,654,965,932,597 };
 int location3_green[5] = { 1023,853,825,802,617 };
 int location3_blue[5] = { 1023,875,873,659,561 };
 int location3_yellow[5] = { 1016,412,652,761,329 };
-int location3_black[5] = { 1022,912,944,855,758 };
+int location3_black[5] = { 1022,912,944,885,758 };
 int location3_white[5] = { 1022,404,580,404,240 };
 
 GolfBallStand::GolfBallStand() {
@@ -184,29 +184,18 @@ int GolfBallStand::determineBallColor(int location) {
 		break;
 	}
 
-	int dists[6] = { red_dist,blue_dist, green_dist, white_dist, black_dist, yellow_dist };
-	int min = findMin(dists);
-
-	if (min == red_dist) {
-		return BALL_RED;
-	}
-	else if (min == blue_dist) {
-		return BALL_BLUE;
-	}
-	else if (min == green_dist) {
-		return BALL_GREEN;
-	}
-	else if (min == white_dist) {
-		return BALL_WHITE;
-	}
-	else if (min == black_dist) {
-		return BALL_BLACK;
-	}
-	else if (min == yellow_dist) {
-		return BALL_YELLOW;
-	}
-
-	return BALL_NONE;
+	double dists[6] = { red_dist,blue_dist, green_dist, white_dist, black_dist, yellow_dist };
+	int minIndex = findMin(dists);
+	
+	//Debugging
+	// for(int i=0;i<sizeof(dists)/sizeof(dists[0]);i++){
+		// Serial.println(dists[i]);
+	// }
+	// Serial.println(minIndex);
+	//Debugging
+	
+	int returnArray[6] = {BALL_RED,BALL_BLUE,BALL_GREEN,BALL_WHITE,BALL_BLACK,BALL_YELLOW};
+	return returnArray[minIndex];
 }
 
 double GolfBallStand::calcBallValue(int foundArray[], int valueArray[]) {
@@ -215,13 +204,12 @@ double GolfBallStand::calcBallValue(int foundArray[], int valueArray[]) {
 		pow(foundArray[4] - valueArray[4], 2));
 }
 
-int GolfBallStand::findMin(int values[]) {
-	int ans = values[0];
-	int i = 1;
-	for (i = 1; i < sizeof(values)/sizeof(values[0]); i++) {
-		if (values[i] < ans) {
-			ans = values[i];
+int GolfBallStand::findMin(double values[]) {
+	int minIndex = 0;
+	for (int i = 1; i < 6; i++) {
+		if (values[i] < values[minIndex]) {
+			minIndex = i;
 		}
 	}
-	return ans;
+	return minIndex;
 }
