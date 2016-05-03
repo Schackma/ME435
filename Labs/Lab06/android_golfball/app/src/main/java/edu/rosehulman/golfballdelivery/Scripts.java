@@ -77,7 +77,7 @@ public class Scripts {
             @Override
             public void run() {
                 if (mGolfBallDeliveryActivity.mState == GolfBallDeliveryActivity.State.NEAR_BALL_SCRIPT) {
-                    mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.DRIVE_TOWARDS_FAR_BALL);
+                    mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.FAR_BALL_SCRIPT);
                 }
             }
         }, driveTimeToNearBallMs + ARM_REMOVAL_TIME_MS);

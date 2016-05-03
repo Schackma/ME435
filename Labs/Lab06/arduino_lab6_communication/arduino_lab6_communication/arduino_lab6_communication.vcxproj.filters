@@ -17,5 +17,9 @@
   <ItemGroup>
     <None Include="arduino_lab6_communication.ino" />
   </ItemGroup>
- 
+  <ItemGroup>
+    <ClInclude Include="__vm\.arduino_lab6_communication.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

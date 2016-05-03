@@ -287,14 +287,14 @@ void handle_ball_detection() {
 	ballColor_3 = stand.determineBallColor(LOCATION_3);
 	stand.setLedState(LED_GREEN, LOCATION_3, LED_FRONT); //indicate that we're done
 
-	char message[2] = { '1', getLetter(ballColor_1) };
-	acc.write(message, 2);
+	char message1[2] = { '1', getLetter(ballColor_1) };
+	acc.write(message1, 2);
 
-	char message[2] = { '2', getLetter(ballColor_2) };
-	acc.write(message, 2);
+	char message2[2] = { '2', getLetter(ballColor_2) };
+	acc.write(message2, 2);
 
-	char message[2] = { '3', getLetter(ballColor_3) };
-	acc.write(message, 2);
+	char message3[2] = { '3', getLetter(ballColor_3) };
+	acc.write(message3, 2);
 }
 
 char getLetter(int BALL_TYPE) {
@@ -311,5 +311,7 @@ char getLetter(int BALL_TYPE) {
 		return 'Y';
 	case BALL_WHITE:
 		return 'W';
+	default:
+		return 'X';
 	}
 }

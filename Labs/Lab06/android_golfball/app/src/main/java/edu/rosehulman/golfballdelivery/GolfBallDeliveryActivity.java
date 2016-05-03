@@ -176,9 +176,9 @@ public class GolfBallDeliveryActivity extends RobotActivity {
      */
     @Override
     public void sendWheelSpeed(int leftDutyCycle, int rightDutyCycle) {
-        super.sendWheelSpeed(leftDutyCycle, rightDutyCycle); // Send the values to the
-        mLeftDutyCycleTextView.setText("Left\n" + leftDutyCycle);
-        mRightDutyCycleTextView.setText("Right\n" + rightDutyCycle);
+//        super.sendWheelSpeed(leftDutyCycle, rightDutyCycle); // Send the values to the
+//        mLeftDutyCycleTextView.setText("Left\n" + leftDutyCycle);
+//        mRightDutyCycleTextView.setText("Right\n" + rightDutyCycle);
     }
 
     /**
@@ -373,8 +373,6 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         Log.d(TAG, "White ball is position " + mWhiteBallLocation);
     }
 
-
-
     // --------------------------- Button Handlers ----------------------------
 
     /**
@@ -445,23 +443,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
     public void handlePerformBallTest(View view) {
         Toast.makeText(this, "Sent a command to Arduino to perform a ball test.  Waiting for a reply", Toast.LENGTH_SHORT).show();
         sendCommand("CUSTOM COLOR_DETECT");
-
-        // Send a mock reply from the Arduino manually
-//        onCommandReceived("1R");
-//        mCommandHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                onCommandReceived("2W");
-//            }
-//        }, 1000);
-//        mCommandHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                onCommandReceived("3B");
-//            }
-//        }, 2000);
     }
-
 
     /**
      * Clicks to the red arrow image button that should show a dialog window.
@@ -594,14 +576,6 @@ public class GolfBallDeliveryActivity extends RobotActivity {
                 setLocationToColor(Integer.parseInt(brokenCommand[1]),BallColor.NONE);
                 break;
         }
-
-//        if (receivedCommand.equalsIgnoreCase("1R")) {
-//            setLocationToColor(1, BallColor.RED);
-//        } else if (receivedCommand.equalsIgnoreCase("2W")) {
-//            setLocationToColor(2, BallColor.WHITE);
-//        } else if (receivedCommand.equalsIgnoreCase("3B")) {
-//            setLocationToColor(3, BallColor.BLUE);
-//        }
     }
 
 }
