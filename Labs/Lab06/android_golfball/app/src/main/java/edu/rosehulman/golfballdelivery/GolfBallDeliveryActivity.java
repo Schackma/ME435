@@ -444,7 +444,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
      */
     public void handlePerformBallTest(View view) {
         Toast.makeText(this, "Sent a command to Arduino to perform a ball test.  Waiting for a reply", Toast.LENGTH_SHORT).show();
-        sendCommand("CUSTOM Do a ball test");
+        sendCommand("CUSTOM COLOR_DETECT");
 
         // Send a mock reply from the Arduino manually
 //        onCommandReceived("1R");
