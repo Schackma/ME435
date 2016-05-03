@@ -159,14 +159,7 @@ void wheelCurrentRequestFromAndroid(void) {
 void customStringCallbackFromAndroid(String customString) {
 	lcd.clear();
 	if (customString.equalsIgnoreCase("COLOR_DETECT")) {
-		lcd.print("Known CUSTOM");
-		ballColor_1 = stand.determineBallColor(LOCATION_1);
-		delay(1000);
-		ballColor_2 = stand.determineBallColor(LOCATION_2);
-		delay(1000);
-		ballColor_3 = stand.determineBallColor(LOCATION_3);
-		delay(1000);
-		stand.setLedState(LED_GREEN, LOCATION_3, LED_FRONT);
+		handle_ball_detection();
 	}
 	else {
 		lcd.print("Unknown CUSTOM");
@@ -286,45 +279,37 @@ void int2_isr() {
 	mainEventFlags |= FLAG_INTERRUPT_2;
 }
 
+void handle_ball_detection() {
+	//delay(1000); //this may or may not come back.  Keep it around, for now.
+	lcd.print("Known CUSTOM");
+	ballColor_1 = stand.determineBallColor(LOCATION_1);
+	ballColor_2 = stand.determineBallColor(LOCATION_2);
+	ballColor_3 = stand.determineBallColor(LOCATION_3);
+	stand.setLedState(LED_GREEN, LOCATION_3, LED_FRONT); //indicate that we're done
 
-/*BELOW HERE IS SCHACK'S MAGIC STUFF.  RESPECT IT, BUT ALSO FEAR IT*/
+	char message[2] = { '1', getLetter(ballColor_1) };
+	acc.write(message, 2);
 
+	char message[2] = { '2', getLetter(ballColor_2) };
+	acc.write(message, 2);
 
+	char message[2] = { '3', getLetter(ballColor_3) };
+	acc.write(message, 2);
+}
 
-//void loop() {
-//	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH)) { ; }// Do nothing until the switch is pressed.
-//	
-//	//ballColor_1 = stand.determineBallColor(LOCATION_1);
-//	//delay(1000);
-//	//ballColor_2 = stand.determineBallColor(LOCATION_2);
-//	//delay(1000);
-//	//ballColor_3 = stand.determineBallColor(LOCATION_3);
-//	//delay(1000);
-//	//stand.setLedState(LED_GREEN, LOCATION_3, LED_FRONT);
-//}
-
-//void printBallColor(int ballColor) {
-//	switch (ballColor) {
-//	case BALL_NONE:
-//		Serial.println("No ball");
-//		break;
-//	case BALL_BLACK:
-//		Serial.println("Black ball");
-//		break;
-//	case BALL_BLUE:
-//		Serial.println("Blue ball");
-//		break;
-//	case BALL_GREEN:
-//		Serial.println("Green ball");
-//		break;
-//	case BALL_RED:
-//		Serial.println("Red ball");
-//		break;
-//	case BALL_YELLOW:
-//		Serial.println("Yellow ball");
-//		break;
-//	case BALL_WHITE:
-//		Serial.println("White ball");
-//		break;
-//	}
-//}
+char getLetter(int BALL_TYPE) {
+	switch (BALL_TYPE) {
+	case BALL_BLACK:
+		return 'N';
+	case BALL_BLUE:
+		return 'B';
+	case BALL_GREEN:
+		return 'G';
+	case BALL_RED:
+		return 'R';
+	case BALL_YELLOW:
+		return 'Y';
+	case BALL_WHITE:
+		return 'W';
+	}
+}
