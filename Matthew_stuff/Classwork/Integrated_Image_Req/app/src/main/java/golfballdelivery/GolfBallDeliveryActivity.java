@@ -1,10 +1,14 @@
 package golfballdelivery;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +17,17 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
-import me435.RobotActivity;
+import schackma.integrated_image_req.ImageRecActivity;
 import schackma.integrated_image_req.R;
 
-public class GolfBallDeliveryActivity extends RobotActivity {
+public class GolfBallDeliveryActivity extends ImageRecActivity {
 
 	/** Constant used with logging that you'll see later. */
 	public static final String TAG = "GolfBallDelivery";
@@ -87,7 +93,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
     /**
      * References to the buttons on the UI that can change color.
      */
-    private Button mTeamChangeButton, mGoOrMissionCompleteButton;
+    private Button mTeamChangeButton, mGoOrMissionCompleteButton,mJumboButton;
 
     /**
      * An array constants (of size 7) that keeps a reference to the different ball color images resources.
@@ -103,6 +109,9 @@ public class GolfBallDeliveryActivity extends RobotActivity {
             mGuessXYTextView, mLeftDutyCycleTextView, mRightDutyCycleTextView, mMatchTimeTextView;
 
     private TextView mJumbotronXView, mJumbotronYView;
+
+    protected ViewFlipper mViewFlipper;
+    private LinearLayout mJumboLayout;
     
     // ---------------------- End of UI References ----------------------
 
@@ -149,6 +158,8 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         // RobotActivity updated the mGuessX and mGuessY already. Here we need to display it.
         mStateTimeTextView.setText("" + getStateTimeMs() / 1000);
         mGuessXYTextView.setText("(" + (int) mGuessX + ", " + (int) mGuessY + ")");
+        mJumbotronXView.setText(""+(int) mCurrentGpsX);
+        mJumbotronYView.setText(""+(int)mCurrentGpsY);
 
         // Match timer.
         long matchTimeMs = MATCH_LENGTH_MS;
@@ -222,6 +233,10 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         mGoOrMissionCompleteButton = (Button) findViewById(R.id.go_or_mission_complete_button);
         mJumbotronXView = (TextView) findViewById(R.id.jumbo_x);
         mJumbotronYView = (TextView) findViewById(R.id.jumbo_y);
+        mJumboButton = (Button) findViewById(R.id.jumbo_button);
+        mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        mJumboLayout = (LinearLayout) findViewById(R.id.jumbotron_linear_layout);
+
 
         // When you start using the real hardware you don't need test buttons.
         boolean hideFakeGpsButtons = false;
@@ -249,11 +264,14 @@ public class GolfBallDeliveryActivity extends RobotActivity {
             case READY_FOR_MISSION:
                 mGoOrMissionCompleteButton.setBackgroundResource(R.drawable.green_button);
                 mGoOrMissionCompleteButton.setText("Go!");
+                mJumboButton.setBackgroundResource(R.drawable.green_button);
+                mJumboButton.setText("G0!");
                 sendWheelSpeed(0, 0);
                 break;
 
             case GO_TO_NEAR_BALL:
                 mScripts.goToNearBallScript();
+                mViewFlipper.setDisplayedChild(2);
                 break;
             case NEAR_BALL_SCRIPT:
                 mScripts.nearBallScript();
@@ -325,11 +343,15 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         String gpsInfo = getString(R.string.xy_format, x, y);
         if (heading <= 180.0 && heading > -180.0) {
             gpsInfo += " " + getString(R.string.degrees_format, heading);
+            mJumboLayout.setBackgroundColor(Color.parseColor("#00FF00"));
+
         } else {
             gpsInfo += " ?º";
+            mJumboLayout.setBackgroundColor(Color.parseColor("#D3D3D3"));
         }
         gpsInfo += "    " + mGpsCounter;
         mGpsInfoTextView.setText(gpsInfo);
+
     }
 
     /**
@@ -541,8 +563,10 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         if (mState == State.READY_FOR_MISSION) {
             mMatchStartTime = System.currentTimeMillis();
             mGoOrMissionCompleteButton.setBackgroundResource(R.drawable.red_button);
+            mJumboButton.setBackgroundResource(R.drawable.red_button);
             updateMissionStrategyVariables();
             mGoOrMissionCompleteButton.setText("Mission Complete!");
+            mJumboButton.setText("Stop!");
             setState(State.GO_TO_NEAR_BALL);
         } else {
             setState(State.READY_FOR_MISSION);

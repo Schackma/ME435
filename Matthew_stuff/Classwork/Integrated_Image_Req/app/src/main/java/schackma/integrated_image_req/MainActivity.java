@@ -1,22 +1,14 @@
 package schackma.integrated_image_req;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import golfballdelivery.GolfBallDeliveryActivity;
 
 public class MainActivity extends GolfBallDeliveryActivity {
-
-    private ViewFlipper mViewFlipper;
 
 
 
@@ -25,9 +17,6 @@ public class MainActivity extends GolfBallDeliveryActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
-
     }
 
     @Override

@@ -15,7 +15,7 @@
 
         <include layout="@layout/main_screen" />
 
-        <include layout="@layout/image_rec_params" />
+        <include layout="@layout/activity_cone_finder" />
 
         <include layout="@layout/jumbotron" />
 
