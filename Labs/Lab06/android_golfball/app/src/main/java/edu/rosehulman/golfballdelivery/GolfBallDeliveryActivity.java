@@ -26,6 +26,13 @@ public class GolfBallDeliveryActivity extends RobotActivity {
 	/** Constant used with logging that you'll see later. */
 	public static final String TAG = "GolfBallDelivery";
 
+    public void clearBalls(View view) {
+        onCommandReceived("1X");
+        onCommandReceived("2X");
+        onCommandReceived("3X");
+
+    }
+
     /**
      * An enum used for variables when a ball color needs to be referenced.
      */
@@ -38,12 +45,13 @@ public class GolfBallDeliveryActivity extends RobotActivity {
      */
     public enum State {
         READY_FOR_MISSION,
+        GO_TO_NEAR_BALL,
         NEAR_BALL_SCRIPT,
-        DRIVE_TOWARDS_FAR_BALL,
+        GO_TO_MID,
+        MID_BALL_SCRIPT,
+        GO_TO_FAR_BALL,
         FAR_BALL_SCRIPT,
         DRIVE_TOWARDS_HOME,
-        WAITING_FOR_PICKUP,
-        SEEKING_HOME,
     }
 // TODO: Design your own FSM for the project!
 
@@ -152,19 +160,6 @@ public class GolfBallDeliveryActivity extends RobotActivity {
         }
         mMatchTimeTextView.setText(getString(R.string.time_format, timeRemainingSeconds / 60, timeRemainingSeconds % 60));
 
-        switch (mState) {
-            case DRIVE_TOWARDS_FAR_BALL:
-                break;
-            case DRIVE_TOWARDS_HOME:
-                break;
-            case WAITING_FOR_PICKUP:
-                break;
-            case SEEKING_HOME:
-                break;
-            default:
-                // Other states don't need to do anything, but could.
-                break;
-        }
     }
 	// ----------------------- End of timing area --------------------------------
 	
@@ -176,9 +171,9 @@ public class GolfBallDeliveryActivity extends RobotActivity {
      */
     @Override
     public void sendWheelSpeed(int leftDutyCycle, int rightDutyCycle) {
-//        super.sendWheelSpeed(leftDutyCycle, rightDutyCycle); // Send the values to the
-//        mLeftDutyCycleTextView.setText("Left\n" + leftDutyCycle);
-//        mRightDutyCycleTextView.setText("Right\n" + rightDutyCycle);
+        super.sendWheelSpeed(leftDutyCycle, rightDutyCycle); // Send the values to the
+        mLeftDutyCycleTextView.setText("Left\n" + leftDutyCycle);
+        mRightDutyCycleTextView.setText("Right\n" + rightDutyCycle);
     }
 
     /**
@@ -239,7 +234,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
     public void setState(State newState) {
         mStateStartTime = System.currentTimeMillis();
         // Make sure when the match ends that no scheduled timer events from scripts change the FSM.
-        if (mState == State.READY_FOR_MISSION && newState != State.NEAR_BALL_SCRIPT) {
+        if (mState == State.READY_FOR_MISSION && newState != State.GO_TO_NEAR_BALL) {
             Toast.makeText(this, "Illegal state transition out of READY_FOR_MISSION", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -251,25 +246,27 @@ public class GolfBallDeliveryActivity extends RobotActivity {
                 mGoOrMissionCompleteButton.setText("Go!");
                 sendWheelSpeed(0, 0);
                 break;
+
+            case GO_TO_NEAR_BALL:
+                mScripts.goToNearBallScript();
+                break;
             case NEAR_BALL_SCRIPT:
-                mGpsInfoTextView.setText("---"); // Clear GPS display (optional)
-                mGuessXYTextView.setText("---"); // Clear guess display (optional)
                 mScripts.nearBallScript();
                 break;
-            case DRIVE_TOWARDS_FAR_BALL:
-                // All actions handled in the loop function.
+            case GO_TO_MID:
+                mScripts.goToMidScript();
+                break;
+            case MID_BALL_SCRIPT:
+                mScripts.midBallScript();
+                break;
+            case GO_TO_FAR_BALL:
+                mScripts.goToFarBallScript();
                 break;
             case FAR_BALL_SCRIPT:
                 mScripts.farBallScript();
                 break;
             case DRIVE_TOWARDS_HOME:
-                // All actions handled in the loop function.
-                break;
-            case WAITING_FOR_PICKUP:
-                sendWheelSpeed(0, 0);
-                break;
-            case SEEKING_HOME:
-                // Actions handled in the loop function.
+                mScripts.driveTowardsHomeScript();
                 break;
         }
         mState = newState;
@@ -355,15 +352,15 @@ public class GolfBallDeliveryActivity extends RobotActivity {
             }
             if(mOnRedTeam){
                 if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
-                    mFarBallLocation = i+1;
-                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
                     mNearBallLocation = i+1;
+                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
+                    mFarBallLocation = i+1;
                 }
             }else{
                 if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
-                    mNearBallLocation = i+1;
-                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
                     mFarBallLocation = i+1;
+                }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
+                    mNearBallLocation = i+1;
                 }
             }
         }
@@ -541,7 +538,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
             mGoOrMissionCompleteButton.setBackgroundResource(R.drawable.red_button);
             updateMissionStrategyVariables();
             mGoOrMissionCompleteButton.setText("Mission Complete!");
-            setState(State.NEAR_BALL_SCRIPT);
+            setState(State.GO_TO_NEAR_BALL);
         } else {
             setState(State.READY_FOR_MISSION);
         }
@@ -576,6 +573,7 @@ public class GolfBallDeliveryActivity extends RobotActivity {
                 setLocationToColor(Integer.parseInt(brokenCommand[1]),BallColor.NONE);
                 break;
         }
+        updateMissionStrategyVariables();
     }
 
 }

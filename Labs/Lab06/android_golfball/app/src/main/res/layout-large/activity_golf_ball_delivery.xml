@@ -302,4 +302,14 @@
         android:text="5:00"
         android:textSize="36sp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:id="@+id/clear"
+        android:onClick="clearBalls"
+        android:layout_below="@+id/golf_ball_buttons"
+        android:layout_alignRight="@+id/fake_gps_button_table"
+        android:layout_toRightOf="@+id/golf_ball_buttons" />
+
 </RelativeLayout>
