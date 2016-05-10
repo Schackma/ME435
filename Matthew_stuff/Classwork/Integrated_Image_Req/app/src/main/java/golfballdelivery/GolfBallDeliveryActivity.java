@@ -215,15 +215,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 //        setContentView(R.layout.activity_golf_ball_delivery);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mBallImageButtons = new ImageButton[]{(ImageButton) findViewById(R.id.location_1_image_button),
                 (ImageButton) findViewById(R.id.location_2_image_button),
                 (ImageButton) findViewById(R.id.location_3_image_button)};
         mTeamChangeButton = (Button) findViewById(R.id.team_change_button);
-        mCurrentStateTextView = (TextView) findViewById(R.id.current_state_textview);
         mStateTimeTextView = (TextView) findViewById(R.id.state_time_textview);
+        mCurrentStateTextView = (TextView) findViewById(R.id.current_state_textview);
         mGpsInfoTextView = (TextView) findViewById(R.id.gps_info_textview);
         mSensorOrientationTextView = (TextView) findViewById(R.id.orientation_textview);
         mGuessXYTextView = (TextView) findViewById(R.id.guess_location_textview);
