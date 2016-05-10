@@ -18,8 +18,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Field GPS"
+                android:text="x:"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
         </TableRow>
         <TableRow android:layout_width="fill_parent">
             <TextView
@@ -32,11 +37,78 @@
                 android:layout_height="wrap_content"
                 android:text="--"
                 android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:id="@+id/gps_counter_disp" />
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/x_value_disp" />
         </TableRow>
 
         <TableRow android:layout_width="fill_parent">
@@ -52,51 +124,7 @@
                 android:id="@+id/y_value_disp"/>
         </TableRow>
 
-        <TableRow android:layout_width="fill_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Heading:"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="--"
-                android:id="@+id/heading_value_disp"/>
-        </TableRow>
 
-        <TableRow android:layout_width="fill_parent">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Set Origin"
-                android:onClick="handleSetOrigin"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Set X-Axis"
-                android:onClick="handleSetxAxis" />
-        </TableRow>
-        <TableRow><TextView></TextView></TableRow>
-        <TableRow android:layout_width="fill_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Field Orientation Sensor" />
-        </TableRow>
-
-        <TableRow android:layout_width="fill_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Heading:"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="--"
-                android:id="@+id/sendor_heading_textview"/>
-        </TableRow>
         <TableRow android:layout_width="fill_parent">
             <Button
                 android:layout_width="wrap_content"
@@ -110,8 +138,5 @@
                 android:textOff="DON'T RESET TO GPS HEADING"
                 android:onClick="handleToggle"/>
         </TableRow>
-
-
-
     </TableLayout>
 </RelativeLayout>

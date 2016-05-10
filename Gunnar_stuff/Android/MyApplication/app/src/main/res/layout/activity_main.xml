@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.rosehulman.horvegc.exam3.MainActivity">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1"
+        android:id="@+id/display_table"
+        android:background="#7FFFD4">
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/state_disp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GUNNAR HORVE"
+                android:textColor="#000000"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/time_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/gps_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sensor Heading"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/sensor_heading_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XY guess:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/xy_guess_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target Heading:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/target_heading_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Turn amount:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/turn_amount_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Command:"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/command_disp"
+                android:textColor="#000000"
+                />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1,2,3,4"
+        android:layout_below="@id/display_table">
+
+        <TableRow android:layout_width="fill_parent">
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20,0"
+            android:onClick="handle_20_0"
+            android:background="#F5F5DC"
+            android:textColor="#000000"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40,0"
+                android:onClick="handle_40_0"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60,0"
+                android:onClick="handle_60_0"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80,0"
+                android:onClick="handle_80_0"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100,0"
+                android:onClick="handle_100_0"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0º"
+                android:onClick="handle_0_deg"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="90º"
+                android:onClick="handle_90_deg"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-90º"
+                android:onClick="handle_neg_90_deg"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="180º"
+                android:onClick="handle_180_deg"
+                android:background="#F5F5DC"
+                android:textColor="#000000" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESET"
+                android:onClick="handle_reset"
+                android:background="#8A2BE2"
+                android:textColor="#000000" />
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

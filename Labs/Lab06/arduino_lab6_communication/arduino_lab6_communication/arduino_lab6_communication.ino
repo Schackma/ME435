@@ -10,6 +10,8 @@
 
 char manufacturer[] = "Rose-Hulman";
 char model[] = "Golf Ball Delivery";  // Change to your app name.
+//char model[] = "Arm Scripts";  // Change to your app name.
+
 char versionStr[] = "1.0";
 
 GolfBallStand stand;

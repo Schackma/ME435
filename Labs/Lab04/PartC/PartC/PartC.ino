@@ -16,8 +16,6 @@ ArmServosSpeedControlled robotArm;
 
 RobotAsciiCom robotCom;
 
-
-
 void setup(){
 	robotArm.attach();
 

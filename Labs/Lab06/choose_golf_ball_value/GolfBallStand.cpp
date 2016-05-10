@@ -17,7 +17,7 @@ int location2_black[5] = { 1022,967,863,976,801 };
 int location2_white[5] = { 1010,389,290,661,207 };
 
 int location3_red[5] = { 1023,654,965,932,597 };
-int location3_green[5] = { 1023,853,825,802,617 };
+int location3_green[5] = { 1022,930,866,855,702 };
 int location3_blue[5] = { 1023,875,873,659,561 };
 int location3_yellow[5] = { 1016,412,652,761,329 };
 int location3_black[5] = { 1022,912,944,885,758 };
