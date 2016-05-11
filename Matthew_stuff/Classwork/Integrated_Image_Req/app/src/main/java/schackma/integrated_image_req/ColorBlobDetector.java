@@ -1,5 +1,4 @@
 package schackma.integrated_image_req;
-
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
