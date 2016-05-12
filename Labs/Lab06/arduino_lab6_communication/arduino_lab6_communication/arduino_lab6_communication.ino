@@ -163,7 +163,9 @@ void customStringCallbackFromAndroid(String customString) {
 	if (customString.equalsIgnoreCase("COLOR_DETECT")) {
 		handle_ball_detection();
 	}
-	else {
+	else if (customString.equalsIgnoreCase("CALIBRATE_BALLS")) {
+		ball_calibration();
+	}else		{
 		lcd.print("Unknown CUSTOM");
 	}
 	lcd.setCursor(0, LINE_2);
@@ -288,7 +290,7 @@ void handle_ball_detection() {
 	ballColor_2 = stand.determineBallColor(LOCATION_2);
 	ballColor_3 = stand.determineBallColor(LOCATION_3);
 	stand.setLedState(LED_GREEN, LOCATION_3, LED_FRONT); //indicate that we're done
-
+	
 	char message1[2] = { '1', getLetter(ballColor_1) };
 	acc.write(message1, 2);
 
@@ -297,6 +299,47 @@ void handle_ball_detection() {
 
 	char message3[2] = { '3', getLetter(ballColor_3) };
 	acc.write(message3, 2);
+}
+
+void ball_calibration() {
+	lcd.clear();
+	lcd.setCursor(0, LINE_1);
+	lcd.print("Ball calibration");
+	lcd.setCursor(0, LINE_2);
+	lcd.print("Red  Yellow  Green");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_RED, BALL_YELLOW, BALL_GREEN);
+
+	lcd.setCursor(0, LINE_2);
+	lcd.print("Green  Red  Yellow");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_GREEN, BALL_RED, BALL_YELLOW);
+
+	lcd.setCursor(0, LINE_2);
+	lcd.print("Yellow  Green  Red");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_YELLOW, BALL_GREEN, BALL_RED);
+
+	lcd.clear();
+	lcd.setCursor(0, LINE_1);
+	lcd.print("Ball calibration");
+	lcd.setCursor(0, LINE_2);
+	lcd.print("Black  White  Blue");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_BLACK, BALL_WHITE, BALL_BLUE);
+
+	lcd.setCursor(0, LINE_2);
+	lcd.print("Blue  Black  White");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_BLUE, BALL_BLACK, BALL_WHITE);
+
+	lcd.setCursor(0, LINE_2);
+	lcd.print("White  Blue  Black");
+	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
+	stand.calibrate(BALL_WHITE, BALL_BLUE, BALL_BLACK);
+	lcd.clear();
+	char message[2] = { '0', 'D' };
+	acc.write(message, 2);
 }
 
 char getLetter(int BALL_TYPE) {

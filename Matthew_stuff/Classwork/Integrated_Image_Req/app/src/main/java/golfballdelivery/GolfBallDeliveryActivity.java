@@ -187,7 +187,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case READY_FOR_MISSION:
                 break;
             case CALIBRATE_BALL_COLORS:
-                //TODO: fill with calibration code
+                sendCommand("CUSTOM CALIBRATE_BALLS");
                 break;
             case CALIBRATE_STRAIGHT_DRIVING:
                 //handled in set state
@@ -316,11 +316,11 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
 
         // When you start using the real hardware you don't need test buttons.
-        boolean hideFakeGpsButtons = false;
-        if (hideFakeGpsButtons) {
-            TableLayout fakeGpsButtonTable = (TableLayout) findViewById(R.id.fake_gps_button_table);
-            fakeGpsButtonTable.setVisibility(View.GONE);
-        }
+//        boolean hideFakeGpsButtons = false;
+//        if (hideFakeGpsButtons) {
+//            TableLayout fakeGpsButtonTable = (TableLayout) findViewById(R.id.fake_gps_button_table);
+//            fakeGpsButtonTable.setVisibility(View.GONE);
+//        }
         setState(State.READY_FOR_MISSION);
         setLocationToColor(1, BallColor.RED);
         setLocationToColor(2, BallColor.WHITE);
@@ -691,6 +691,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case "N":
                 setLocationToColor(Integer.parseInt(brokenCommand[1]), BallColor.BLACK);
+                break;
+            case "D":
+                setState(State.READY_FOR_MISSION);
                 break;
             default:
                 setLocationToColor(Integer.parseInt(brokenCommand[1]), BallColor.NONE);

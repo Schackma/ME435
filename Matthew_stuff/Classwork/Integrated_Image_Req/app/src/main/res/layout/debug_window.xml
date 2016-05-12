@@ -5,7 +5,7 @@
     android:background="#444">
 
     <TableLayout
-        android:id="@+id/fake_gps_button_table"
+        android:id="@+id/fake_gps_button_table_debug"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -73,7 +73,7 @@
         android:id="@+id/set_sensor_button_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fake_gps_button_table">
+        android:layout_below="@id/fake_gps_button_table_debug">
 
         <TableRow
             android:layout_width="wrap_content"
