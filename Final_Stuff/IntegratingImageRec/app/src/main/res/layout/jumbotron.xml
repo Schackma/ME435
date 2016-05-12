@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/jumbotron_linear_layout"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/jumbo_x"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="180dp"
+        android:gravity="center"
+        android:text="15" />
+
+    <ToggleButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jumbo_button"
+        android:layout_weight="1"
+        android:layout_below="@id/jumbo_x"
+        android:checked="false"
+        android:textOn="Stop"
+        android:textOff="Go"
+        android:textSize="180dp"/>
+
+    <TextView
+        android:id="@+id/jumbo_y"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="180dp"
+        android:text="0" />
+</LinearLayout>
+
