@@ -331,8 +331,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void setState(State newState) {
         mStateStartTime = System.currentTimeMillis();
         // Make sure when the match ends that no scheduled timer events from scripts change the FSM.
-        if (mState == State.READY_FOR_MISSION && newState != State.GO_TO_NEAR_BALL_WITH_GPS ||
-                mState != State.CALIBRATE_BALL_COLORS|| mState != State.CALIBRATE_STRAIGHT_DRIVING) {
+        if (mState == State.READY_FOR_MISSION && (newState != State.GO_TO_NEAR_BALL_WITH_GPS ||
+                mState != State.CALIBRATE_BALL_COLORS|| mState != State.CALIBRATE_STRAIGHT_DRIVING)) {
             Toast.makeText(this, "Illegal state transition out of READY_FOR_MISSION", Toast.LENGTH_SHORT).show();
             return;
         }
