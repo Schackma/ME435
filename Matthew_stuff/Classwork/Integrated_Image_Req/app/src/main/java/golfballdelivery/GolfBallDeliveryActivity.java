@@ -1,14 +1,11 @@
 package golfballdelivery;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +20,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+import me435.NavUtils;
 
 import schackma.integrated_image_req.ImageRecActivity;
 import schackma.integrated_image_req.R;
@@ -32,12 +30,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 	/** Constant used with logging that you'll see later. */
 	public static final String TAG = "GolfBallDelivery";
 
-    public void clearBalls(View view) {
-        onCommandReceived("1X");
-        onCommandReceived("2X");
-        onCommandReceived("3X");
-
-    }
 
     /**
      * An enum used for variables when a ball color needs to be referenced.
@@ -51,20 +43,24 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      */
     public enum State {
         READY_FOR_MISSION,
-        GO_TO_NEAR_BALL,
-        NEAR_BALL_SCRIPT,
-        GO_TO_MID,
-        MID_BALL_SCRIPT,
-        GO_TO_FAR_BALL,
-        FAR_BALL_SCRIPT,
+        CALIBRATE_BALL_COLORS,
+        CALIBRATE_STRAIGHT_DRIVING,
+        GO_TO_NEAR_BALL_WITH_GPS,
+        GO_TO_NEAR_BALL_WITH_IMAGE,
+        DROP_NEAR_BALL,
+        GO_TO_FAR_BALL_WITH_GPS,
+        GO_TO_FAR_BALL_WITH_IMAGE,
+        DROP_FAR_BALL,
         DRIVE_TOWARDS_HOME,
+        WAIT_FOR_PICKUP,
+        FIND_HEADING
     }
-// TODO: Design your own FSM for the project!
 
     /**
      * Tracks the robot's current state.
      */
-    public State mState;
+    public State mState=State.READY_FOR_MISSION;
+    private State prevState;
 
     /**
      * Instance of a helper method class that implements various script driving functions.
@@ -110,6 +106,10 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     private TextView mJumbotronXView, mJumbotronYView;
 
+    private TextView dCurrentStateTextView, dStateTimeTextView, dGpsInfoTextView, dSensorOrientationTextView,
+        dGuessXYTextView, dHeadingTime;
+
+
     protected ViewFlipper mViewFlipper;
     private LinearLayout mJumboLayout;
     
@@ -118,12 +118,15 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 	
 	// ---------------------- Mission strategy values ----------------------
     /** Constants for the known locations. */
-    public static final long NEAR_BALL_GPS_X = 90;
-    public static final long FAR_BALL_GPS_X = 240;
+    public static final double NEAR_BALL_GPS_X = 90;
+    public static final double FAR_BALL_GPS_X = 240;
 
 
     /** Variables that will be either 50 or -50 depending on the balls we get. */
     private double mNearBallGpsY, mFarBallGpsY;
+
+    private double mCurrX, mCurrY, mCurrHeading;
+
 
     /**
      * If that ball is present the values will be 1, 2, or 3.
@@ -145,10 +148,16 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      */
     private long mMatchStartTime;
 
+    private long mLastHeadingTime;
+
     /**
      * Constant that holds the maximum length of the match (saved in milliseconds).
      */
     private long MATCH_LENGTH_MS = 300000; // 5 minutes in milliseconds (5 * 60 * 1000)
+
+    private long LOST_HEADING_THRESHOLD = 2000;
+
+    private long PICKUP_THRESHOLD = 10000;
 
     /**
      * Method that is called 10 times per second for updates. Note, the setup was done within RobotActivity.
@@ -160,6 +169,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         mGuessXYTextView.setText("(" + (int) mGuessX + ", " + (int) mGuessY + ")");
         mJumbotronXView.setText(""+(int) mCurrentGpsX);
         mJumbotronYView.setText(""+(int)mCurrentGpsY);
+        dHeadingTime.setText(""+getLastHeadingTimeMs()/1000);
 
         // Match timer.
         long matchTimeMs = MATCH_LENGTH_MS;
@@ -173,11 +183,72 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         }
         mMatchTimeTextView.setText(getString(R.string.time_format, timeRemainingSeconds / 60, timeRemainingSeconds % 60));
 
+        switch(mState){
+            case READY_FOR_MISSION:
+                break;
+            case CALIBRATE_BALL_COLORS:
+                //TODO: fill with calibration code
+                break;
+            case CALIBRATE_STRAIGHT_DRIVING:
+                //handled in set state
+                break;
+            case GO_TO_NEAR_BALL_WITH_GPS:
+                complexMove(NEAR_BALL_GPS_X,mNearBallGpsY,State.GO_TO_NEAR_BALL_WITH_IMAGE);
+                break;
+            case GO_TO_NEAR_BALL_WITH_IMAGE:
+                //TODO: fill with code
+                break;
+            case DROP_NEAR_BALL:
+                //handled in setState
+                break;
+            case GO_TO_FAR_BALL_WITH_GPS:
+                complexMove(FAR_BALL_GPS_X,mFarBallGpsY,State.GO_TO_FAR_BALL_WITH_IMAGE);
+                break;
+            case GO_TO_FAR_BALL_WITH_IMAGE:
+                //TODO: fill with code
+                break;
+            case DROP_FAR_BALL:
+                //handled in set state
+                break;
+            case DRIVE_TOWARDS_HOME:
+                complexMove(0,0,State.WAIT_FOR_PICKUP);
+                break;
+            case WAIT_FOR_PICKUP:
+                if(getStateTimeMs() > PICKUP_THRESHOLD){
+                    setState(State.DRIVE_TOWARDS_HOME);
+                }
+                break;
+            case FIND_HEADING:
+                if(getLastHeadingTimeMs() < LOST_HEADING_THRESHOLD){
+                    setState(prevState);
+                }
+                break;
+        }
+
     }
 	// ----------------------- End of timing area --------------------------------
 	
 	
     // ---------------------------- Driving area ---------------------------------
+
+
+    public void complexMove(double xGoal,double yGoal,State newState){
+        if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
+            setState(State.FIND_HEADING);
+        }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
+            setState(newState);
+        }else if(NavUtils.targetIsOnLeft(mGuessX,mGuessY,mCurrHeading,xGoal,yGoal)){
+            double turnHeading = NavUtils.getLeftTurnHeadingDelta(mCurrHeading,NavUtils.getTargetHeading
+                    (mGuessX,mGuessY,xGoal,yGoal));
+            sendWheelSpeed((int)(mLeftStraightPwmValue - turnHeading*PCTRL),
+                    (int)(mRightStraightPwmValue+turnHeading*PCTRL));
+        }else{
+            double turnHeading = NavUtils.getRightTurnHeadingDelta(mCurrHeading,NavUtils.getTargetHeading
+                    (mGuessX,mGuessY,xGoal,yGoal));
+            sendWheelSpeed((int)(mLeftStraightPwmValue + turnHeading*PCTRL),
+                    (int)(mRightStraightPwmValue-turnHeading*PCTRL));
+        }
+    }
 
     /**
      * Send the wheel speeds to the robot and updates the TextViews.
@@ -209,6 +280,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      * PWM duty cycle values used with the drive straight dialog that make your robot drive straightest.
      */
     public int mLeftStraightPwmValue = 255, mRightStraightPwmValue = 255;
+
+    private static final double PCTRL = 1;
 	// ------------------------ End of Driving area ------------------------------
 
 
@@ -221,6 +294,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 (ImageButton) findViewById(R.id.location_2_image_button),
                 (ImageButton) findViewById(R.id.location_3_image_button)};
         mTeamChangeButton = (Button) findViewById(R.id.team_change_button);
+
         mStateTimeTextView = (TextView) findViewById(R.id.state_time_textview);
         mCurrentStateTextView = (TextView) findViewById(R.id.current_state_textview);
         mGpsInfoTextView = (TextView) findViewById(R.id.gps_info_textview);
@@ -230,9 +304,13 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         mRightDutyCycleTextView = (TextView) findViewById(R.id.right_duty_cycle_textview);
         mMatchTimeTextView = (TextView) findViewById(R.id.match_time_textview);
         mGoOrMissionCompleteButton = (Button) findViewById(R.id.go_or_mission_complete_button);
+
         mJumbotronXView = (TextView) findViewById(R.id.jumbo_x);
         mJumbotronYView = (TextView) findViewById(R.id.jumbo_y);
         mJumboButton = (Button) findViewById(R.id.jumbo_button);
+
+        dHeadingTime = (TextView) findViewById(R.id.time_since_last_gps_reading_textview);
+
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         mJumboLayout = (LinearLayout) findViewById(R.id.jumbotron_linear_layout);
 
@@ -253,7 +331,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void setState(State newState) {
         mStateStartTime = System.currentTimeMillis();
         // Make sure when the match ends that no scheduled timer events from scripts change the FSM.
-        if (mState == State.READY_FOR_MISSION && newState != State.GO_TO_NEAR_BALL) {
+        if (mState == State.READY_FOR_MISSION && newState != State.GO_TO_NEAR_BALL_WITH_GPS ||
+                mState != State.CALIBRATE_BALL_COLORS|| mState != State.CALIBRATE_STRAIGHT_DRIVING) {
             Toast.makeText(this, "Illegal state transition out of READY_FOR_MISSION", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -267,28 +346,37 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 mJumboButton.setText("G0!");
                 sendWheelSpeed(0, 0);
                 break;
-
-            case GO_TO_NEAR_BALL:
-                mScripts.goToNearBallScript();
+            case CALIBRATE_BALL_COLORS:
+                break;
+            case CALIBRATE_STRAIGHT_DRIVING:
+                mScripts.testStraightDriveScript();
+                break;
+            case GO_TO_NEAR_BALL_WITH_GPS:
+//                mScripts.goToNearBallScript();
                 mViewFlipper.setDisplayedChild(2);
                 break;
-            case NEAR_BALL_SCRIPT:
+            case GO_TO_NEAR_BALL_WITH_IMAGE:
+                break;
+            case DROP_NEAR_BALL:
                 mScripts.nearBallScript();
                 break;
-            case GO_TO_MID:
-                mScripts.goToMidScript();
+            case GO_TO_FAR_BALL_WITH_GPS:
+//                mScripts.goToFarBallScript();
                 break;
-            case MID_BALL_SCRIPT:
-                mScripts.midBallScript();
+            case GO_TO_FAR_BALL_WITH_IMAGE:
                 break;
-            case GO_TO_FAR_BALL:
-                mScripts.goToFarBallScript();
-                break;
-            case FAR_BALL_SCRIPT:
+            case DROP_FAR_BALL:
                 mScripts.farBallScript();
                 break;
             case DRIVE_TOWARDS_HOME:
-                mScripts.driveTowardsHomeScript();
+//                mScripts.driveTowardsHomeScript();
+                break;
+            case WAIT_FOR_PICKUP:
+                sendWheelSpeed(0, 0);
+                break;
+            case FIND_HEADING:
+                prevState = mState;
+                sendWheelSpeed(mLeftStraightPwmValue,mRightStraightPwmValue);
                 break;
         }
         mState = newState;
@@ -308,7 +396,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     /**
      * Used to get the state time in milliseconds.
      */
-    private long getStateTimeMs() {
+    protected long getStateTimeMs() {
         return System.currentTimeMillis() - mStateStartTime;
     }
 
@@ -317,6 +405,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      */
     private long getMatchTimeMs() {
         return System.currentTimeMillis() - mMatchStartTime;
+    }
+
+
+    /**
+     * Used to get the time since the last GPS heading in milliseconds
+     */
+    private long getLastHeadingTimeMs() {
+        return System.currentTimeMillis() - mLastHeadingTime;
     }
 
 
@@ -343,7 +439,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         if (heading <= 180.0 && heading > -180.0) {
             gpsInfo += " " + getString(R.string.degrees_format, heading);
             mJumboLayout.setBackgroundColor(Color.parseColor("#00FF00"));
-
+            mLastHeadingTime = System.currentTimeMillis();
         } else {
             gpsInfo += " ?º";
             mJumboLayout.setBackgroundColor(Color.parseColor("#D3D3D3"));
@@ -545,7 +641,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         onLocationChanged(0, -9, -170, null);  // Within range
     }
 
-
     public void handleSetOrigin(View view) {
         mFieldGps.setCurrentLocationAsOrigin();
     }
@@ -566,7 +661,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             updateMissionStrategyVariables();
             mGoOrMissionCompleteButton.setText("Mission Complete!");
             mJumboButton.setText("Stop!");
-            setState(State.GO_TO_NEAR_BALL);
+            setState(State.GO_TO_NEAR_BALL_WITH_GPS);
         } else {
             setState(State.READY_FOR_MISSION);
         }

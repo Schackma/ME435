@@ -56,6 +56,7 @@ public class Scripts {
             public void run() {
                 Toast.makeText(mGolfBallDeliveryActivity, "End Short straight drive test", Toast.LENGTH_SHORT).show();
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
+                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.READY_FOR_MISSION);
             }
         }, 8000);
     }
@@ -63,12 +64,16 @@ public class Scripts {
 
     /** Runs the script to drive to the near ball (perfectly straight) and drop it off. */
     public void nearBallScript() {
-        removeBallAtLocation(mGolfBallDeliveryActivity.mNearBallLocation,GolfBallDeliveryActivity.State.GO_TO_MID);
+        removeBallAtLocation(mGolfBallDeliveryActivity.mNearBallLocation,GolfBallDeliveryActivity.State.GO_TO_FAR_BALL_WITH_GPS);
     }
 
 
     /** Script to drop off the far ball. */
     public void farBallScript() {
+        if (mGolfBallDeliveryActivity.mWhiteBallLocation != 0) {
+            removeBallAtLocation(mGolfBallDeliveryActivity.mWhiteBallLocation, null);
+        }
+
         removeBallAtLocation(mGolfBallDeliveryActivity.mFarBallLocation, GolfBallDeliveryActivity.State.DRIVE_TOWARDS_HOME);
     }
 
@@ -118,7 +123,9 @@ public class Scripts {
             @Override
             public void run() {
                 sendPos(home);
-                mGolfBallDeliveryActivity.setState(newState);
+                if(newState != null) {
+                    mGolfBallDeliveryActivity.setState(newState);
+                }
             }
         }, 5000);
     }
@@ -136,34 +143,34 @@ public class Scripts {
             @Override
             public void run() {
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
-                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.NEAR_BALL_SCRIPT);
+                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.DROP_NEAR_BALL);
             }
         }, driveTimeToNearBallMs);
 
     }
 
-    public void goToMidScript() {
-        double distanceToMidBall = NavUtils.getDistance(15, 0, 90, 50);
-        long driveTimeToMidBallMs = (long) (distanceToMidBall / RobotActivity.DEFAULT_SPEED_FT_PER_SEC * 1000);
-        driveTimeToMidBallMs = 1000; // Make this mock script not take so long.
-        mGolfBallDeliveryActivity.sendWheelSpeed(mGolfBallDeliveryActivity.mLeftStraightPwmValue, mGolfBallDeliveryActivity.mRightStraightPwmValue);
-        mCommandHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
-                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.MID_BALL_SCRIPT);
-            }
-        }, driveTimeToMidBallMs);
+//    public void goToMidScript() {
+//        double distanceToMidBall = NavUtils.getDistance(15, 0, 90, 50);
+//        long driveTimeToMidBallMs = (long) (distanceToMidBall / RobotActivity.DEFAULT_SPEED_FT_PER_SEC * 1000);
+//        driveTimeToMidBallMs = 1000; // Make this mock script not take so long.
+//        mGolfBallDeliveryActivity.sendWheelSpeed(mGolfBallDeliveryActivity.mLeftStraightPwmValue, mGolfBallDeliveryActivity.mRightStraightPwmValue);
+//        mCommandHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
+//                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.MID_BALL_SCRIPT);
+//            }
+//        }, driveTimeToMidBallMs);
+//
+//    }
 
-    }
-
-    public void midBallScript() {
-        if (mGolfBallDeliveryActivity.mWhiteBallLocation != 0) {
-            removeBallAtLocation(mGolfBallDeliveryActivity.mWhiteBallLocation, GolfBallDeliveryActivity.State.GO_TO_FAR_BALL);
-        }else {
-            mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.GO_TO_FAR_BALL);
-        }
-    }
+//    public void midBallScript() {
+//        if (mGolfBallDeliveryActivity.mWhiteBallLocation != 0) {
+//            removeBallAtLocation(mGolfBallDeliveryActivity.mWhiteBallLocation, GolfBallDeliveryActivity.State.GO_TO_FAR_BALL);
+//        }else {
+//            mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.GO_TO_FAR_BALL);
+//        }
+//    }
 
     public void goToFarBallScript() {
         double distanceToFarBall = NavUtils.getDistance(15, 0, 90, 50);
@@ -174,7 +181,7 @@ public class Scripts {
             @Override
             public void run() {
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
-                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.FAR_BALL_SCRIPT);
+                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.DROP_FAR_BALL);
             }
         }, driveTimeToFarBallMs);
 
@@ -191,7 +198,7 @@ public class Scripts {
             public void run() {
                 Toast.makeText(mGolfBallDeliveryActivity,"fuck this",Toast.LENGTH_SHORT).show();
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
-                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.READY_FOR_MISSION);            }
+                mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.READY_FOR_MISSION);}
         }, driveTimeToHomeMs);
     }
 }
