@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\main\assets"/><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\debug\assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\main\assets"/><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\debug\assets"/></dataSet></merger>
+>>>>>>> 2d3832f6de67000deef78b287f9bc745d9179712

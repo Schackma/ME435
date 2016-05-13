@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="debug"><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\androidTest\assets"/><source path="C:\Users\horvegc\Documents\Spring\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="debug"><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\src\androidTest\assets"/><source path="C:\Users\schackma\Documents\ME435\Final_Stuff\IntegratingImageRec\openCVLibrary300\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>
+>>>>>>> 2d3832f6de67000deef78b287f9bc745d9179712

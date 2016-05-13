@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_226025dc84255790c34b1d8e38ffb7a794640436\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="091d7e8279ccf82d937f6df14bda9a01b7d3212e">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4f07bb7e9c919e4082281d7543abece147d02fd3\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_f0ca598d6128ed5f05e0bf4cd49f6a04601143d5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8697bde5eb5f072ddd05f2fb5db73a1211f8e4ec">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_2f9d6d06bcf448c2a8303885aee1c08fd2d94dd9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_e3b09ea7754eeb0aa91738a89a6e94143fa07542\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_c0fc019cf9aaeb200b7db1d14018ae1b7b2562f2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_e356b186a245f3285ae04ca7ba86089bcf25cd75\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\schackma\Documents\ME435\Labs\Lab06\android_golfball\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_cef00dbeba2006bb43f3a4e1c181e704208891a9\classes.dex" />
+    </item>
+
+</items>

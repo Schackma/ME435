@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#444"
-    android:padding="5dp"
-    tools:context=".GolfBallDeliveryActivity">
-
+    android:padding="5dp">
     <Button
         android:id="@+id/team_change_button"
         style="@style/ColorButton"
@@ -234,5 +232,27 @@
         android:layout_margin="10dp"
         android:text="5:00"
         android:textSize="22sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/guess_location_label"
+        android:layout_alignLeft="@+id/golf_ball_buttons"
+        android:layout_alignStart="@+id/golf_ball_buttons">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calibrate Golf Balls"
+            android:id="@+id/golf_calibrate_button"
+            android:onClick="handleGolfCalibrate"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button2" />
+    </LinearLayout>
 
 </RelativeLayout>

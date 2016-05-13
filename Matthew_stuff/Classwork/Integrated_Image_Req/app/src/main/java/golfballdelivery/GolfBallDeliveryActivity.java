@@ -89,7 +89,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     /**
      * References to the buttons on the UI that can change color.
      */
-    private Button mTeamChangeButton, mGoOrMissionCompleteButton,mJumboButton;
+    private Button mTeamChangeButton, mGoOrMissionCompleteButton,mJumboButton, mGolfBallCalibrate;
 
     /**
      * An array constants (of size 7) that keeps a reference to the different ball color images resources.
@@ -187,7 +187,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case READY_FOR_MISSION:
                 break;
             case CALIBRATE_BALL_COLORS:
-                sendCommand("CUSTOM CALIBRATE_BALLS");
+                //handled in set state
                 break;
             case CALIBRATE_STRAIGHT_DRIVING:
                 //handled in set state
@@ -314,6 +314,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         mJumboLayout = (LinearLayout) findViewById(R.id.jumbotron_linear_layout);
 
+        mGolfBallCalibrate =(Button) findViewById(R.id.golf_calibrate_button);
+
 
         // When you start using the real hardware you don't need test buttons.
 //        boolean hideFakeGpsButtons = false;
@@ -347,6 +349,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 sendWheelSpeed(0, 0);
                 break;
             case CALIBRATE_BALL_COLORS:
+                sendCommand("CUSTOM CALIBRATE_BALLS");
                 break;
             case CALIBRATE_STRAIGHT_DRIVING:
                 mScripts.testStraightDriveScript();
@@ -511,6 +514,10 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 return builder.create();
             }
         }.show(getFragmentManager(), "unused tag");
+    }
+
+    public void handleGolfCalibrate(View view){
+        setState(State.CALIBRATE_BALL_COLORS);
     }
 
 

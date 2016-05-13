@@ -189,6 +189,7 @@
                 android:background="@drawable/purple_button"
                 android:onClick="handleZeroHeading"
                 android:text="Zero heading" />
+
         </TableRow>
     </TableLayout>
 
@@ -297,5 +298,21 @@
         android:layout_margin="10dp"
         android:text="5:00"
         android:textSize="22sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/guess_location_label"
+        android:layout_alignLeft="@+id/golf_ball_buttons"
+        android:layout_alignStart="@+id/golf_ball_buttons">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Golf ball Calibration"
+            android:id="@+id/button"
+            android:onClick="handleGolfBallCalibration"/>
+    </LinearLayout>
 
 </RelativeLayout>

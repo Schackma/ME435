@@ -92,7 +92,10 @@ class GolfBallStand
 	void calibrate(int color1, int color2, int color3);
   private:
 	  double calcBallValue(int foundArray[], int valueArray[]);
-	  int findMin(int values[]);
+	  int findMin(double values[]);
+	  void findAndMerge(int location, int ball_color, int newValues[]);
+	  void mergeArrays(int inArray[], int outArray[]);
+	  void getLedReadings(int location, int values[]);
   protected:
     void _init(void);
 };

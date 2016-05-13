@@ -171,7 +171,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         // Match timer.
         long matchTimeMs = MATCH_LENGTH_MS;
         long timeRemainingSeconds = MATCH_LENGTH_MS / 1000;
-        if (mState != State.READY_FOR_MISSION) {
+        if (mState != State.READY_FOR_MISSION && mState != State.CALIBRATE_BALL_COLORS) {
             matchTimeMs = getMatchTimeMs();
             timeRemainingSeconds = (MATCH_LENGTH_MS - matchTimeMs) / 1000;
             if (getMatchTimeMs() > MATCH_LENGTH_MS) {
@@ -184,7 +184,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case READY_FOR_MISSION:
                 break;
             case CALIBRATE_BALL_COLORS:
-                sendCommand("CUSTOM CALIBRATE_BALLS");
                 break;
             case CALIBRATE_STRAIGHT_DRIVING:
                 //handled in set state
@@ -327,12 +326,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     public void setState(State newState) {
         mStateStartTime = System.currentTimeMillis();
-        // Make sure when the match ends that no scheduled timer events from scripts change the FSM.
-        if (mState == State.READY_FOR_MISSION && newState != State.GO_TO_NEAR_BALL_WITH_GPS ||
-                mState != State.CALIBRATE_BALL_COLORS|| mState != State.CALIBRATE_STRAIGHT_DRIVING) {
-            Toast.makeText(this, "Illegal state transition out of READY_FOR_MISSION", Toast.LENGTH_SHORT).show();
-            return;
-        }
         mCurrentStateTextView.setText(newState.name());
 //        speak(newState.name().replace("_", " "));
         switch (newState) {
@@ -344,6 +337,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 sendWheelSpeed(0, 0);
                 break;
             case CALIBRATE_BALL_COLORS:
+                sendCommand("CUSTOM CALIBRATE_BALLS");
                 break;
             case CALIBRATE_STRAIGHT_DRIVING:
                 mScripts.testStraightDriveScript();
@@ -508,6 +502,10 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 return builder.create();
             }
         }.show(getFragmentManager(), "unused tag");
+    }
+
+    public void handleGolfBallCalibration(View view){
+        setState(State.CALIBRATE_BALL_COLORS);
     }
 
 
