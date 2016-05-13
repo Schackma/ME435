@@ -107,7 +107,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         dGuessXYTextView, dHeadingTime;
 
 
-    protected ViewFlipper mViewFlipper;
     private LinearLayout mJumboLayout;
     
     // ---------------------- End of UI References ----------------------
