@@ -504,6 +504,22 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         }.show(getFragmentManager(), "unused tag");
     }
 
+    public void handleSetState(View view){
+        new DialogFragment() {
+            @Override
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("What do you want the state to be?").setItems(R.array.states,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                GolfBallDeliveryActivity.this.setState(State.values()[which]);
+                            }
+                        });
+                return builder.create();
+            }
+        }.show(getFragmentManager(), "unused tag");
+    }
+
     public void handleGolfBallCalibration(View view){
         setState(State.CALIBRATE_BALL_COLORS);
     }

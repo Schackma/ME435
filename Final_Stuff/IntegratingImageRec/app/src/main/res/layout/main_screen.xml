@@ -299,20 +299,34 @@
         android:text="5:00"
         android:textSize="22sp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/guess_location_label"
-        android:layout_alignLeft="@+id/golf_ball_buttons"
-        android:layout_alignStart="@+id/golf_ball_buttons">
+        android:text="Golf ball Calibration"
+        android:id="@+id/button"
+        android:onClick="handleGolfBallCalibration"
+        android:layout_below="@+id/imageButton1"
+        android:layout_alignRight="@+id/right_duty_cycle_textview"
+        android:layout_alignEnd="@+id/right_duty_cycle_textview" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Golf ball Calibration"
-            android:id="@+id/button"
-            android:onClick="handleGolfBallCalibration"/>
-    </LinearLayout>
+    <TextView
+        style="@style/DisplayText"
+        android:id="@+id/textView"
+        android:text="Time since last GPS reading with heading: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/size_percentage_label"
+        android:layout_alignLeft="@+id/size_percentage_label"
+        android:layout_alignStart="@+id/size_percentage_label" />
+
+    <TextView
+        style="@style/DisplayText"
+        android:id="@+id/time_since_last_gps_reading_textview"
+        android:text="---"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/size_percentage_value"
+        android:layout_alignLeft="@+id/size_percentage_value"
+        android:layout_alignStart="@+id/size_percentage_value" />
 
 </RelativeLayout>

@@ -37,6 +37,12 @@ public class MainActivity extends GolfBallDeliveryActivity {
             mViewFlipper.showNext();
             return true;
         }
+
+        if (id == R.id.action_back){
+            mViewFlipper.showPrevious();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
