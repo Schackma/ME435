@@ -138,7 +138,7 @@ void GolfBallStand::getLedReadings(int location, int values[]) {
 }
 
 int GolfBallStand::determineBallColor(int location) {
-	int values[5];
+	int values[5] = { 0 };
 	getLedReadings(location, values);
 	Serial.println();
 	Serial.print("Readings for location ");
@@ -188,29 +188,18 @@ int GolfBallStand::determineBallColor(int location) {
 		break;
 	}
 
-	int dists[6] = { red_dist,blue_dist, green_dist, white_dist, black_dist, yellow_dist };
-	int min = findMin(dists);
+	double dists[6] = { red_dist,blue_dist, green_dist, white_dist, black_dist, yellow_dist };
+	int minIndex = findMin(dists);
 
-	if (min == red_dist) {
-		return BALL_RED;
-	}
-	else if (min == blue_dist) {
-		return BALL_BLUE;
-	}
-	else if (min == green_dist) {
-		return BALL_GREEN;
-	}
-	else if (min == white_dist) {
-		return BALL_WHITE;
-	}
-	else if (min == black_dist) {
-		return BALL_BLACK;
-	}
-	else if (min == yellow_dist) {
-		return BALL_YELLOW;
-	}
+	//Debugging
+	// for(int i=0;i<sizeof(dists)/sizeof(dists[0]);i++){
+	// Serial.println(dists[i]);
+	// }
+	// Serial.println(minIndex);
+	//Debugging
 
-	return BALL_NONE;
+	int returnArray[6] = { BALL_RED,BALL_BLUE,BALL_GREEN,BALL_WHITE,BALL_BLACK,BALL_YELLOW };
+	return returnArray[minIndex];
 }
 
 double GolfBallStand::calcBallValue(int foundArray[], int valueArray[]) {
@@ -219,26 +208,25 @@ double GolfBallStand::calcBallValue(int foundArray[], int valueArray[]) {
 		pow(foundArray[4] - valueArray[4], 2));
 }
 
-int GolfBallStand::findMin(int values[]) {
-	int ans = values[0];
-	int i = 1;
-	for (i = 1; i < sizeof(values)/sizeof(values[0]); i++) {
-		if (values[i] < ans) {
-			ans = values[i];
+int GolfBallStand::findMin(double values[]) {
+	int minIndex = 0;
+	for (int i = 1; i < 6; i++) {
+		if (values[i] < values[minIndex]) {
+			minIndex = i;
 		}
 	}
-	return ans;
+	return minIndex;
 }
 
 void GolfBallStand::calibrate(int ball1, int ball2, int ball3) {
 	int newValues[5];
-	getLedReadings(1, newValues);
+	getLedReadings(LOCATION_1, newValues);
 	findAndMerge(LOCATION_1, ball1, newValues);
 
-	getLedReadings(2, newValues);
+	getLedReadings(LOCATION_2, newValues);
 	findAndMerge(LOCATION_2, ball2, newValues);
 
-	getLedReading(3, newValues);
+	getLedReadings(LOCATION_3, newValues);
 	findAndMerge(LOCATION_3, ball3, newValues);
 }
 

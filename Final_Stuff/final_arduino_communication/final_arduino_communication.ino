@@ -9,7 +9,7 @@
 #define TEAM_NUMBER 3  // Replace this with your team number.
 
 char manufacturer[] = "Rose-Hulman";
-char model[] = "Golf Ball Delivery";  // Change to your app name.
+char model[] = "Final Golf Ball Delivery";  // Change to your app name.
 //char model[] = "Arm Scripts";  // Change to your app name.
 
 char versionStr[] = "1.0";
@@ -306,17 +306,17 @@ void ball_calibration() {
 	lcd.setCursor(0, LINE_1);
 	lcd.print("Ball calibration");
 	lcd.setCursor(0, LINE_2);
-	lcd.print("Red  Yellow  Green");
+	lcd.print("Red Yellow Green");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_RED, BALL_YELLOW, BALL_GREEN);
 
 	lcd.setCursor(0, LINE_2);
-	lcd.print("Green  Red  Yellow");
+	lcd.print("Green Red Yellow");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_GREEN, BALL_RED, BALL_YELLOW);
 
 	lcd.setCursor(0, LINE_2);
-	lcd.print("Yellow  Green  Red");
+	lcd.print("Yellow Green Red");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_YELLOW, BALL_GREEN, BALL_RED);
 
@@ -324,17 +324,17 @@ void ball_calibration() {
 	lcd.setCursor(0, LINE_1);
 	lcd.print("Ball calibration");
 	lcd.setCursor(0, LINE_2);
-	lcd.print("Black  White  Blue");
+	lcd.print("Black White Blue");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_BLACK, BALL_WHITE, BALL_BLUE);
 
 	lcd.setCursor(0, LINE_2);
-	lcd.print("Blue  Black  White");
+	lcd.print("Blue Black White");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_BLUE, BALL_BLACK, BALL_WHITE);
 
 	lcd.setCursor(0, LINE_2);
-	lcd.print("White  Blue  Black");
+	lcd.print("White Blue Black");
 	while (digitalRead(PIN_GOLF_BALL_STAND_SWITCH));
 	stand.calibrate(BALL_WHITE, BALL_BLUE, BALL_BLACK);
 	lcd.clear();
