@@ -310,18 +310,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
         mViewFlipper = (ViewFlipper) findViewById(R.id.my_view_flipper);
         mJumboLayout = (LinearLayout) findViewById(R.id.jumbotron_linear_layout);
-
-
-        // When you start using the real hardware you don't need test buttons.
-//        boolean hideFakeGpsButtons = false;
-//        if (hideFakeGpsButtons) {
-//            TableLayout fakeGpsButtonTable = (TableLayout) findViewById(R.id.fake_gps_button_table);
-//            fakeGpsButtonTable.setVisibility(View.GONE);
-//        }
+        
         setState(State.READY_FOR_MISSION);
-        setLocationToColor(1, BallColor.RED);
-        setLocationToColor(2, BallColor.WHITE);
-        setLocationToColor(3, BallColor.BLUE);
+        setLocationToColor(1, BallColor.NONE); setLocationToColor(2, BallColor.NONE); setLocationToColor(3, BallColor.NONE);
         mScripts = new Scripts(this);
     }
 
