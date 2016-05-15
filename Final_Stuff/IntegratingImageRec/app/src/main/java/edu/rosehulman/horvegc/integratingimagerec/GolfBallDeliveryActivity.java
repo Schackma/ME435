@@ -189,6 +189,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_NEAR_BALL_WITH_GPS:
                 complexMove(NEAR_BALL_GPS_X,mNearBallGpsY, State.GO_TO_NEAR_BALL_WITH_IMAGE,State.DROP_NEAR_BALL);
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*1.25){
+                    setState(State.GO_TO_NEAR_BALL_WITH_IMAGE);
+                }
                 break;
             case GO_TO_NEAR_BALL_WITH_IMAGE:
                 //TODO: fill with code
@@ -199,6 +202,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
                 complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_FAR_BALL);
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*1.25){
+                    setState(State.GO_TO_FAR_BALL_WITH_IMAGE);
+                }
                 break;
             case GO_TO_FAR_BALL_WITH_IMAGE:
                 //TODO: fill with code
@@ -233,16 +239,19 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
             triesForCone++;
             setState(State.FIND_HEADING);
+
         }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
             if(triesForCone > 3){
                 setState(dropAlready);
             }
             setState(newState);
+
         }else if(NavUtils.targetIsOnLeft(mGuessX,mGuessY,mCurrHeading,xGoal,yGoal)){
             double turnHeading = NavUtils.getLeftTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading
                     (mGuessX,mGuessY,xGoal,yGoal));
             sendWheelSpeed((int)(mLeftStraightPwmValue - turnHeading*PCTRL),
                     (int)(mRightStraightPwmValue+turnHeading*PCTRL));
+
         }else{
             double turnHeading = NavUtils.getRightTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading
                     (mGuessX,mGuessY,xGoal,yGoal));
