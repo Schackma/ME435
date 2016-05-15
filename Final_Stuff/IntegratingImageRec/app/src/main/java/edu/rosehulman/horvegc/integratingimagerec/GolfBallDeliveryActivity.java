@@ -231,9 +231,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     public void complexMove(double xGoal,double yGoal,State newState,State dropAlready){
         if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
-            triesForCone++;
             setState(State.FIND_HEADING);
         }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
+            triesForCone++;
             if(triesForCone > 3){
                 setState(dropAlready);
             }
@@ -248,6 +248,16 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                     (mGuessX,mGuessY,xGoal,yGoal));
             sendWheelSpeed((int)(mLeftStraightPwmValue + turnHeading*PCTRL),
                     (int)(mRightStraightPwmValue-turnHeading*PCTRL));
+        }
+    }
+
+    public void coneVisionLogic(State dropAlready) {
+        if(mConeSize > MIN_SIZE_PERCENTAGE) {
+            setState(dropAlready); //you win!!!
+        } else if (mConeLeftRightLocation < 0.4) { //You're leaning too far to the left., turn right.
+            sendWheelSpeed(255, 230);
+        } else if (mConeLeftRightLocation > 0.6) { //You're leaning too far to the right, turn left.
+            sendWheelSpeed(230, 255);
         }
     }
 
