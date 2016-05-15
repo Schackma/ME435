@@ -151,7 +151,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      */
     private long MATCH_LENGTH_MS = 300000; // 5 minutes in milliseconds (5 * 60 * 1000)
 
-    private long LOST_HEADING_THRESHOLD = 2000;
+    private long LOST_HEADING_THRESHOLD = 20000;
 
     private long PICKUP_THRESHOLD = 10000;
 
@@ -320,6 +320,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         mJumboButton = (Button) findViewById(R.id.jumbo_button);
 
         dHeadingTime = (TextView) findViewById(R.id.time_since_last_gps_reading_textview);
+        dHeadingTime.setText("0");
 
         mViewFlipper = (ViewFlipper) findViewById(R.id.my_view_flipper);
         mJumboLayout = (LinearLayout) findViewById(R.id.jumbotron_linear_layout);
@@ -408,7 +409,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      * Used to get the time since the last GPS heading in milliseconds
      */
     private long getLastHeadingTimeMs() {
-        return System.currentTimeMillis() - mLastHeadingTime;
+        return mState==State.READY_FOR_MISSION ? 0: System.currentTimeMillis() - mLastHeadingTime;
     }
 
 
