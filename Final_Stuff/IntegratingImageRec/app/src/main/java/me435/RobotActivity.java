@@ -1,13 +1,14 @@
 package me435;
 
-import android.location.Location;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.WindowManager;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.view.WindowManager;
 
 /** 
  * This class is intended to be subclasses by your main activity. It subclasses
@@ -45,7 +46,7 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
   protected FieldOrientation mFieldOrientation;
 
   /** Text to speech helper. Used for speech and simple sounds. */
-  protected me435.TextToSpeechHelper mTts;
+  protected TextToSpeechHelper mTts;
 
   // GPS member variables.
   /** Most recent readings of the GPS. */
@@ -149,7 +150,7 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
     // Assume you are on the red team to start the app (can be changed later).
     mFieldGps = new FieldGps(this, RED_HOME_LATITUDE, RED_HOME_LONGITUDE, BLUE_HOME_LATITUDE, BLUE_HOME_LONGITUDE);
     mFieldOrientation = new FieldOrientation(this, BLUE_HOME_LATITUDE, BLUE_HOME_LONGITUDE, RED_HOME_LATITUDE, RED_HOME_LONGITUDE);
-    mTts = new me435.TextToSpeechHelper(this);
+    mTts = new TextToSpeechHelper(this);
   }
 
   public void setTeamToRed(boolean isRed) {
@@ -253,6 +254,12 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
   }
 
   @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    mFieldGps.requestLocationUpdates(this);
+  }
+
+  @Override
   protected void onStart() {
     super.onStart();
     mTimer = new Timer();
@@ -267,7 +274,7 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
       }
     }, 0, LOOP_INTERVAL_MS);
     mFieldOrientation.registerListener(this);
-//    mFieldGps.requestLocationUpdates(this, 1000, 0);
+    mFieldGps.requestLocationUpdates(this, 1000, 0);
   }
 
   @Override
@@ -277,7 +284,7 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
     mTimer.cancel();
     mTimer = null;
     mFieldOrientation.unregisterListener();
-//    mFieldGps.removeUpdates();
+    mFieldGps.removeUpdates();
   }
 
   /**

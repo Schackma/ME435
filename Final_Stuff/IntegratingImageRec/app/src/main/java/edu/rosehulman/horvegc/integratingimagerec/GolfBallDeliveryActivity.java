@@ -129,7 +129,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      * If not present the value will be 0.
      * For example if we have the black ball, then mWhiteBallLocation will equal 0.
      */
-    public int mNearBallLocation, mFarBallLocation, mWhiteBallLocation;
+    public int mNearBallLocation, mFarBallLocation, mWhiteBallLocation,triesForCone = 0;
     // ----------------- End of mission strategy values ----------------------
 	
 	
@@ -195,6 +195,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case DROP_NEAR_BALL:
                 //handled in setState
+                triesForCone=0; //reset so far ball has 3 tries
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
                 complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE);
@@ -231,6 +232,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
             setState(State.FIND_HEADING);
         }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
+            triesForCone++;
             setState(newState);
         }else if(NavUtils.targetIsOnLeft(mGuessX,mGuessY,mCurrHeading,xGoal,yGoal)){
             double turnHeading = NavUtils.getLeftTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading

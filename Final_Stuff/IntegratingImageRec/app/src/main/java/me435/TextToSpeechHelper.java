@@ -1,11 +1,16 @@
 package me435;
 
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 import android.app.Activity;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
-
-import java.util.Locale;
 
 /**
  * This class is a simple helper for doing TextToSpeech.  Create an instance

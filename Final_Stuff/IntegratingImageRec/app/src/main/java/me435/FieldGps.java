@@ -53,7 +53,7 @@ public class FieldGps implements LocationListener {
   private double mLatitudeOrigin, mLongitudeOrigin, mLatitudeOnXAxis, mLongitudeOnXAxis;
 
   /** Listener that will be called when new GPS locations are available. */
-  private me435.FieldGpsListener mListener;
+  private FieldGpsListener mListener;
 
   /** Context used to fetch the LocationManager. */
   private Context mContext;
@@ -73,7 +73,7 @@ public class FieldGps implements LocationListener {
    *          Listener that implements FieldGpsListener that will be called with
    *          updates.
    */
-  public FieldGps(me435.FieldGpsListener listener) {
+  public FieldGps(FieldGpsListener listener) {
     this(listener, 
         ROSE_FRONT_CIRCLE_LATITUDE, ROSE_FRONT_CIRCLE_LONGITUDE,
         ROSE_FRONT_ENTRANCE_LATITUDE, ROSE_FRONT_ENTRANCE_LONGITUDE);
@@ -97,7 +97,7 @@ public class FieldGps implements LocationListener {
    * @param longitudeOnXAxis
    *          Longitude of any point that is on the X axis.
    */
-  public FieldGps(me435.FieldGpsListener listener, double latitudeOrigin, double longitudeOrigin,
+  public FieldGps(FieldGpsListener listener, double latitudeOrigin, double longitudeOrigin,
       double latitudeOnXAxis, double longitudeOnXAxis) {
     mListener = listener;
     mLatitudeOrigin = latitudeOrigin;
