@@ -188,7 +188,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 //handled in set state
                 break;
             case GO_TO_NEAR_BALL_WITH_GPS:
-                complexMove(NEAR_BALL_GPS_X,mNearBallGpsY, State.GO_TO_NEAR_BALL_WITH_IMAGE);
+                complexMove(NEAR_BALL_GPS_X,mNearBallGpsY, State.GO_TO_NEAR_BALL_WITH_IMAGE,State.DROP_NEAR_BALL);
                 break;
             case GO_TO_NEAR_BALL_WITH_IMAGE:
                 //TODO: fill with code
@@ -198,16 +198,17 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 triesForCone=0; //reset so far ball has 3 tries
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
-                complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE);
+                complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_FAR_BALL);
                 break;
             case GO_TO_FAR_BALL_WITH_IMAGE:
                 //TODO: fill with code
                 break;
             case DROP_FAR_BALL:
                 //handled in set state
+                triesForCone=0; //reset so go home doesn't break
                 break;
             case DRIVE_TOWARDS_HOME:
-                complexMove(0,0, State.WAIT_FOR_PICKUP);
+                complexMove(0,0, State.WAIT_FOR_PICKUP,null);
                 break;
             case WAIT_FOR_PICKUP:
                 if(getStateTimeMs() > PICKUP_THRESHOLD){
@@ -228,11 +229,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     // ---------------------------- Driving area ---------------------------------
 
 
-    public void complexMove(double xGoal,double yGoal,State newState){
+    public void complexMove(double xGoal,double yGoal,State newState,State dropAlready){
         if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
+            triesForCone++;
             setState(State.FIND_HEADING);
         }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
-            triesForCone++;
+            if(triesForCone > 3){
+                setState(dropAlready);
+            }
             setState(newState);
         }else if(NavUtils.targetIsOnLeft(mGuessX,mGuessY,mCurrHeading,xGoal,yGoal)){
             double turnHeading = NavUtils.getLeftTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading
