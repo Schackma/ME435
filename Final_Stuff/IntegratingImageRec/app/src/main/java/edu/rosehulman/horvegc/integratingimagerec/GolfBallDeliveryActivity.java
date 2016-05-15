@@ -117,6 +117,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public static final double NEAR_BALL_GPS_X = 90;
     public static final double FAR_BALL_GPS_X = 240;
 
+    private static final double FIND_CONE_TIME = 10000;
+
 
     /** Variables that will be either 50 or -50 depending on the balls we get. */
     private double mNearBallGpsY, mFarBallGpsY;
@@ -189,12 +191,15 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_NEAR_BALL_WITH_GPS:
                 complexMove(NEAR_BALL_GPS_X,mNearBallGpsY, State.GO_TO_NEAR_BALL_WITH_IMAGE,State.DROP_NEAR_BALL);
-                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*1.25){
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*3){
                     setState(State.GO_TO_NEAR_BALL_WITH_IMAGE);
                 }
                 break;
             case GO_TO_NEAR_BALL_WITH_IMAGE:
-                //TODO: fill with code
+                coneVisionLogic(State.DROP_NEAR_BALL);
+                if(NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT*4){
+                    setState(State.GO_TO_NEAR_BALL_WITH_GPS);
+                }
                 break;
             case DROP_NEAR_BALL:
                 //handled in setState
@@ -202,12 +207,15 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
                 complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_FAR_BALL);
-                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*1.25){
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*3){
                     setState(State.GO_TO_FAR_BALL_WITH_IMAGE);
                 }
                 break;
             case GO_TO_FAR_BALL_WITH_IMAGE:
-                //TODO: fill with code
+                coneVisionLogic(State.DROP_FAR_BALL);
+                if(NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT*4){
+                    setState(State.GO_TO_FAR_BALL_WITH_GPS);
+                }
                 break;
             case DROP_FAR_BALL:
                 //handled in set state
@@ -261,13 +269,23 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     }
 
     public void coneVisionLogic(State dropAlready) {
+        if(!mConeFound){
+            sendWheelSpeed(-mLeftStraightPwmValue/2,mRightStraightPwmValue/2);
+            if(getStateTimeMs() > FIND_CONE_TIME){
+                setState(dropAlready);
+            }
+            return;
+        }
+
+
         if(mConeSize > MIN_SIZE_PERCENTAGE) {
             setState(dropAlready); //you win!!!
         } else if (mConeLeftRightLocation < 0.4) { //You're leaning too far to the left., turn right.
-            sendWheelSpeed(255, 230);
+            sendWheelSpeed(mLeftStraightPwmValue, mRightStraightPwmValue-20);
         } else if (mConeLeftRightLocation > 0.6) { //You're leaning too far to the right, turn left.
-            sendWheelSpeed(230, 255);
+            sendWheelSpeed(mLeftStraightPwmValue-20, mRightStraightPwmValue);
         }
+
     }
 
     /**
