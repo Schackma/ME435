@@ -12,7 +12,7 @@
     <org.opencv.android.JavaCameraView
         android:id="@+id/color_blob_detection_activity_surface_view"
         android:layout_width="match_parent"
-        android:layout_height="500dp" />
+        android:layout_height="300dp" />
 
     <!--The content below should go just below the JavaCameraView in the image_rec_params.xml file.-->
     <TableLayout

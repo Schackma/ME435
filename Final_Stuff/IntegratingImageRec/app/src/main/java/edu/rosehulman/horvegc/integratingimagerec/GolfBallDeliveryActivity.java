@@ -713,7 +713,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             updateMissionStrategyVariables();
             mGoOrMissionCompleteButton.setText("Mission Complete!");
             mJumboButton.setText("Stop!");
-            setState(State.GO_TO_NEAR_BALL_WITH_GPS);
+
+            mCommandHandler.postDelayed(new Runnable() { //start delay of 5 seconds
+                @Override
+                public void run() {
+                    setState(State.GO_TO_NEAR_BALL_WITH_GPS);
+                }
+            }, 5000);
+
         } else {
             setState(State.READY_FOR_MISSION);
         }

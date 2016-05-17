@@ -150,6 +150,7 @@ public class ImageRecActivity extends RobotActivity implements CameraBridgeViewB
         mRangeVSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
 
         mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.color_blob_detection_activity_surface_view);
+        mOpenCvCameraView.setCameraIndex(1);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
         if (PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)) {

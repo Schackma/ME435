@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#444">
+
+    <TableLayout
+        android:id="@+id/fake_gps_button_table_debug"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsF0"
+                android:text="GPS F0" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsF1"
+                android:text="GPS F1" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsF2"
+                android:text="GPS F2" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsF3"
+                android:text="GPS F3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsH0"
+                android:text="GPS H0" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsH1"
+                android:text="GPS H1" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsH2"
+                android:text="GPS H2" />
+
+            <Button
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/black_button"
+                android:onClick="handleFakeGpsH3"
+                android:text="GPS H3" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/set_sensor_button_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fake_gps_button_table_debug">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/set_origin_button"
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/yellow_button"
+                android:onClick="handleSetOrigin"
+                android:text="Set Origin" />
+
+            <Button
+                android:id="@+id/set_x_axis_button"
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/yellow_button"
+                android:onClick="handleSetXAxis"
+                android:text="Set X" />
+
+            <Button
+                android:id="@+id/reset_heading_button"
+                style="@style/ColorButton.HorzLinearLayout"
+                android:background="@drawable/purple_button"
+                android:onClick="handleZeroHeading"
+                android:text="Zero heading" />
+        </TableRow>
+        </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set State"
+        android:id="@+id/set_state_button"
+        android:layout_below="@+id/set_sensor_button_table"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick ="handleSetState"/>
+
+
+</RelativeLayout>
