@@ -340,6 +340,8 @@ void ball_calibration() {
 	lcd.clear();
 	char message[2] = { '0', 'D' };
 	acc.write(message, 2);
+  lcd.setCursor(0,LINE_1);
+  lcd.print("calibration complete");
 }
 
 char getLetter(int BALL_TYPE) {

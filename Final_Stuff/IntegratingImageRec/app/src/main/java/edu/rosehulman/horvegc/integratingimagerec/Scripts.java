@@ -21,13 +21,13 @@ public class Scripts {
 
     private int home[] = {0,90,0,-90,90};
 
-    private int killRight[] = {-19,125,-90,-147,96};
-    private int killMid[] = {8,120,-81,-163,96};
-    private int killLeft[] = {39,122,-90,-147,96};
+    private int killRight[] = {-13,39,-87,-155,90};
+    private int killMid[] = {9, 39, -87, -155, 90};
+    private int killLeft[] = {47,39,-87,-155,90};
 
-    private int boop[] = { -43,125, 90,-147,96 };
-    private int boopMid[] ={8,150,-81,-90,-147,60};
-    private int boopLeft[] = {79,122,-90,-147,96};
+    private int boopRight[] = { -13,17, -87,-178,90 };
+    private int boopMid[] ={9,17,-87,-178,90};
+    private int boopLeft[] = {47,17,-87,-180,90};
 
 
     /** Reference to the primary activity. */
@@ -70,12 +70,17 @@ public class Scripts {
 
     /** Script to drop off the far ball. */
     public void farBallScript() {
-        if (mGolfBallDeliveryActivity.mWhiteBallLocation != 0) {
-            removeBallAtLocation(mGolfBallDeliveryActivity.mWhiteBallLocation, null);
-        }
-
         removeBallAtLocation(mGolfBallDeliveryActivity.mFarBallLocation, GolfBallDeliveryActivity.State.DRIVE_TOWARDS_HOME);
     }
+
+    public void midBallScript(){
+        if (mGolfBallDeliveryActivity.mWhiteBallLocation != 0) {
+            removeBallAtLocation(mGolfBallDeliveryActivity.mWhiteBallLocation, GolfBallDeliveryActivity.State.DROP_FAR_BALL);
+        }else{
+            mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.DROP_FAR_BALL);
+        }
+    }
+
 
 
     // -------------------------------- Arm script(s) ----------------------------------------
@@ -92,6 +97,7 @@ public class Scripts {
                 sendPos(home);
             }
         }, 10);
+        Toast.makeText(mGolfBallDeliveryActivity,""+location,Toast.LENGTH_SHORT).show();
 
 
         mCommandHandler.postDelayed(new Runnable() {
@@ -112,7 +118,7 @@ public class Scripts {
                 if(location == LEFT) {
                     sendPos(boopLeft);
                 } else if (location == RIGHT){
-                    sendPos(boop);
+                    sendPos(boopRight);
                 }else{
                     sendPos(boopMid);
                 }

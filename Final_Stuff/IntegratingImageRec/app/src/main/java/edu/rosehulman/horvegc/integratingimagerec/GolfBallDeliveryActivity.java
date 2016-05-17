@@ -48,6 +48,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         GO_TO_FAR_BALL_WITH_GPS,
         GO_TO_FAR_BALL_WITH_IMAGE,
         DROP_FAR_BALL,
+        DROP_MID_BALL,
         DRIVE_TOWARDS_HOME,
         WAIT_FOR_PICKUP,
         FIND_HEADING
@@ -176,7 +177,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             matchTimeMs = getMatchTimeMs();
             timeRemainingSeconds = (MATCH_LENGTH_MS - matchTimeMs) / 1000;
             if (getMatchTimeMs() > MATCH_LENGTH_MS) {
-                setState(State.READY_FOR_MISSION);
+//                setState(State.READY_FOR_MISSION);
             }
         }
         mMatchTimeTextView.setText(getString(R.string.time_format, timeRemainingSeconds / 60, timeRemainingSeconds % 60));
@@ -206,13 +207,13 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 triesForCone=0; //reset so far ball has 3 tries
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
-                complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_FAR_BALL);
+                complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_MID_BALL);
                 if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*3){
                     setState(State.GO_TO_FAR_BALL_WITH_IMAGE);
                 }
                 break;
             case GO_TO_FAR_BALL_WITH_IMAGE:
-                coneVisionLogic(State.DROP_FAR_BALL);
+                coneVisionLogic(State.DROP_MID_BALL);
                 if(NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT*4){
                     setState(State.GO_TO_FAR_BALL_WITH_GPS);
                 }
@@ -383,6 +384,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case GO_TO_NEAR_BALL_WITH_IMAGE:
                 break;
             case DROP_NEAR_BALL:
+                sendWheelSpeed(0,0);
                 mScripts.nearBallScript();
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
@@ -391,8 +393,12 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case GO_TO_FAR_BALL_WITH_IMAGE:
                 break;
             case DROP_FAR_BALL:
+                sendWheelSpeed(0,0);
                 mScripts.farBallScript();
                 break;
+            case DROP_MID_BALL:
+                sendWheelSpeed(0,0);
+                mScripts.midBallScript();
             case DRIVE_TOWARDS_HOME:
 //                mScripts.driveTowardsHomeScript();
                 break;
@@ -508,6 +514,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                     mFarBallLocation = i+1;
                 }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
                     mNearBallLocation = i+1;
+                    Toast.makeText(this,"setting near ball location to"+mNearBallLocation,Toast.LENGTH_SHORT).show();
                 }
             }
         }
