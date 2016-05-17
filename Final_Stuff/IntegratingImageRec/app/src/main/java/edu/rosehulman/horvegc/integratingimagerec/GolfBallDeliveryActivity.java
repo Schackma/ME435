@@ -166,8 +166,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         // RobotActivity updated the mGuessX and mGuessY already. Here we need to display it.
         mStateTimeTextView.setText("" + getStateTimeMs() / 1000);
         mGuessXYTextView.setText("(" + (int) mGuessX + ", " + (int) mGuessY + ")");
-        mJumbotronXView.setText(""+(int) mCurrentGpsX);
-        mJumbotronYView.setText(""+(int)mCurrentGpsY);
+//        mJumbotronXView.setText(""+(int) mCurrentGpsX);
+//        mJumbotronYView.setText(""+(int)mCurrentGpsY);
         dHeadingTime.setText(""+getLastHeadingTimeMs()/1000);
 
         // Match timer.
@@ -294,6 +294,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      */
     @Override
     public void sendWheelSpeed(int leftDutyCycle, int rightDutyCycle) {
+        mJumbotronXView.setText("" + leftDutyCycle+", " + rightDutyCycle);
         super.sendWheelSpeed(leftDutyCycle, rightDutyCycle); // Send the values to the
         mLeftDutyCycleTextView.setText("Left\n" + leftDutyCycle);
         mRightDutyCycleTextView.setText("Right\n" + rightDutyCycle);
@@ -318,9 +319,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     /**
      * PWM duty cycle values used with the drive straight dialog that make your robot drive straightest.
      */
-    public int mLeftStraightPwmValue = 255, mRightStraightPwmValue = 255;
+    public int mLeftStraightPwmValue = 225, mRightStraightPwmValue = 225;
 
-    private static final double PCTRL = 1;
+    private static final double PCTRL = 0.5;
 	// ------------------------ End of Driving area ------------------------------
 
 
@@ -362,6 +363,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void setState(State newState) {
         mStateStartTime = System.currentTimeMillis();
         mCurrentStateTextView.setText(newState.name());
+        mJumbotronYView.setText(newState.name());
 //        speak(newState.name().replace("_", " "));
         switch (newState) {
             case READY_FOR_MISSION:
@@ -491,8 +493,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     /** Updates the mission strategy variables. */
     private void updateMissionStrategyVariables() {
-        mNearBallGpsY = -50.0; // Note, X value is a constant.
-        mFarBallGpsY = 50.0; // Note, X value is a constant.
         mNearBallLocation = 1;
         mWhiteBallLocation = 0; // Assume there is no white ball present for now (update later).
         mFarBallLocation = 3;
@@ -506,15 +506,34 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             if(mOnRedTeam){
                 if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
                     mNearBallLocation = i+1;
+                    if(currentLocationsBallColor ==BallColor.RED){
+                        mNearBallGpsY = -50;
+                    }else{
+                        mNearBallGpsY = 50;
+                    }
                 }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
                     mFarBallLocation = i+1;
+                    if(currentLocationsBallColor==BallColor.BLUE){
+                        mFarBallGpsY = 50;
+                    }else{
+                        mFarBallGpsY = -50;
+                    }
                 }
             }else{
                 if(currentLocationsBallColor == BallColor.RED || currentLocationsBallColor == BallColor.GREEN){
                     mFarBallLocation = i+1;
+                    if(currentLocationsBallColor ==BallColor.RED){
+                        mFarBallGpsY = 50;
+                    }else{
+                        mFarBallGpsY = -50;
+                    }
                 }else if(currentLocationsBallColor == BallColor.BLUE || currentLocationsBallColor == BallColor.YELLOW){
                     mNearBallLocation = i+1;
-                    Toast.makeText(this,"setting near ball location to"+mNearBallLocation,Toast.LENGTH_SHORT).show();
+                    if(currentLocationsBallColor==BallColor.BLUE){
+                        mNearBallGpsY = -50;
+                    }else{
+                        mNearBallGpsY = 50;
+                    }
                 }
             }
         }
