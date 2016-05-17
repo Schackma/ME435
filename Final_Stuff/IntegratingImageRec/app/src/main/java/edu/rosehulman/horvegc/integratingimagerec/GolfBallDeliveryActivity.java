@@ -247,7 +247,6 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void complexMove(double xGoal,double yGoal,State newState,State dropAlready){
         if(getLastHeadingTimeMs() > LOST_HEADING_THRESHOLD){
             setState(State.FIND_HEADING);
-
         }else if(NavUtils.getDistance(mGuessX,mGuessY,xGoal,yGoal) < ACCEPTED_DISTANCE_AWAY_FT){
             triesForCone++;
             if(triesForCone > 3){
@@ -258,13 +257,15 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         }else if(NavUtils.targetIsOnLeft(mGuessX,mGuessY,mCurrHeading,xGoal,yGoal)){
             double turnHeading = NavUtils.getLeftTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading
                     (mGuessX,mGuessY,xGoal,yGoal));
+            Log.d(TAG,"the robot is turning left at the heading: "+turnHeading);
             sendWheelSpeed((int)(mLeftStraightPwmValue - turnHeading*PCTRL),
-                    (int)(mRightStraightPwmValue+turnHeading*PCTRL));
+                    mRightStraightPwmValue);
 
         }else{
             double turnHeading = NavUtils.getRightTurnHeadingDelta(mCurrHeading, NavUtils.getTargetHeading
                     (mGuessX,mGuessY,xGoal,yGoal));
-            sendWheelSpeed((int)(mLeftStraightPwmValue + turnHeading*PCTRL),
+            Log.d(TAG,"the robot is turning right at the heading: "+turnHeading);
+            sendWheelSpeed(mLeftStraightPwmValue,
                     (int)(mRightStraightPwmValue-turnHeading*PCTRL));
         }
     }
@@ -319,9 +320,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     /**
      * PWM duty cycle values used with the drive straight dialog that make your robot drive straightest.
      */
-    public int mLeftStraightPwmValue = 225, mRightStraightPwmValue = 225;
+    public int mLeftStraightPwmValue = 215, mRightStraightPwmValue = 250;
 
-    private static final double PCTRL = 0.5;
+    private static final double PCTRL = 1;
 	// ------------------------ End of Driving area ------------------------------
 
 
@@ -489,6 +490,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void onSensorChanged(double fieldHeading, float[] orientationValues) {
         super.onSensorChanged(fieldHeading, orientationValues);
         mSensorOrientationTextView.setText(getString(R.string.degrees_format, fieldHeading));
+        mCurrHeading = fieldHeading;
     }
 
     /** Updates the mission strategy variables. */
@@ -681,7 +683,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     }
 
     public void handleFakeGpsF0(View view) {
-        onLocationChanged(165, 50, NO_HEADING, null); // Midfield
+        onLocationChanged(0, 0, 0, null); // Midfield
     }
 
     public void handleFakeGpsF1(View view) {
