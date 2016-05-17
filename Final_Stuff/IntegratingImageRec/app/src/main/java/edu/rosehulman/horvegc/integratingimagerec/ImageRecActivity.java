@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -154,9 +153,9 @@ public class ImageRecActivity extends RobotActivity implements CameraBridgeViewB
         mOpenCvCameraView.setCvCameraViewListener(this);
 
         if (PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)) {
-            Log.d(TAG, "Everything should be fine with using the camera.");
+//            Log.d(TAG, "Everything should be fine with using the camera.");
         } else {
-            Log.d(TAG, "Requesting permission to use the camera.");
+//            Log.d(TAG, "Requesting permission to use the camera.");
             String[] CAMERA_PERMISSONS = {
                     Manifest.permission.CAMERA
             };
@@ -175,14 +174,14 @@ public class ImageRecActivity extends RobotActivity implements CameraBridgeViewB
             int s = Integer.parseInt(targetSText);
             int v = Integer.parseInt(targetVText);
             if (h < 0 || h > 255 || s < 0 || s > 255 || v < 0 || v > 255) {
-                Log.e(TAG, "Invalid EditText box value!  Must be 0 to 255!");
+//                Log.e(TAG, "Invalid EditText box value!  Must be 0 to 255!");
                 return;
             }
             mConeTargetH = h;
             mConeTargetS = s;
             mConeTargetV = v;
         } catch (NumberFormatException e) {
-            Log.e(TAG, "Invalid EditText box!  Must be an int value!");
+//            Log.e(TAG, "Invalid EditText box!  Must be an int value!");
             return;
         }
 
@@ -456,7 +455,7 @@ public class ImageRecActivity extends RobotActivity implements CameraBridgeViewB
     public boolean onTouch(View v, MotionEvent event) {
         Toast.makeText(ImageRecActivity.this, "FUCK THE POLICE", Toast.LENGTH_SHORT).show();
         if (mViewFlipper.getDisplayedChild() != 1) {
-            Log.d(TAG, "Don't listen for touch events if the camera is not visible.");
+//            Log.d(TAG, "Don't listen for touch events if the camera is not visible.");
             return false;
         }
         int cols = mRgba.cols();
@@ -468,7 +467,7 @@ public class ImageRecActivity extends RobotActivity implements CameraBridgeViewB
         int x = (int) event.getX() - xOffset;
         int y = (int) event.getY() - yOffset;
 
-        Log.i(TAG, "Touch image coordinates: (" + x + ", " + y + ")");
+//        Log.i(TAG, "Touch image coordinates: (" + x + ", " + y + ")");
 
         if ((x < 0) || (y < 0) || (x > cols) || (y > rows)) return false;
 

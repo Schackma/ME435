@@ -126,6 +126,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     private double mCurrX, mCurrY, mCurrHeading;
 
+    private static final double DROP_PERCENT = .9; //TODO: CHANGE TO A GOOD NUMBER
+
 
     /**
      * If that ball is present the values will be 1, 2, or 3.
@@ -170,7 +172,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 //        mJumbotronYView.setText(""+(int)mCurrentGpsY);
         dHeadingTime.setText(""+getLastHeadingTimeMs()/1000);
 
-        // Match timer.
+        // Match timer
         long matchTimeMs = MATCH_LENGTH_MS;
         long timeRemainingSeconds = MATCH_LENGTH_MS / 1000;
         if (mState != State.READY_FOR_MISSION && mState != State.CALIBRATE_BALL_COLORS) {
@@ -192,13 +194,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_NEAR_BALL_WITH_GPS:
                 complexMove(NEAR_BALL_GPS_X,mNearBallGpsY, State.GO_TO_NEAR_BALL_WITH_IMAGE,State.DROP_NEAR_BALL);
-                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*3){
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT){
                     setState(State.GO_TO_NEAR_BALL_WITH_IMAGE);
                 }
                 break;
             case GO_TO_NEAR_BALL_WITH_IMAGE:
                 coneVisionLogic(State.DROP_NEAR_BALL);
-                if(NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT*4){
+                if(NavUtils.getDistance(mGuessX,mGuessY,NEAR_BALL_GPS_X,mNearBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT){
+                    Log.d(TAG,"going back to gps");
                     setState(State.GO_TO_NEAR_BALL_WITH_GPS);
                 }
                 break;
@@ -208,13 +211,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
                 complexMove(FAR_BALL_GPS_X,mFarBallGpsY, State.GO_TO_FAR_BALL_WITH_IMAGE,State.DROP_MID_BALL);
-                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < ACCEPTED_DISTANCE_AWAY_FT*3){
+                if(mConeFound && NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) < SWITCH_BACK_DISTANCE){
                     setState(State.GO_TO_FAR_BALL_WITH_IMAGE);
                 }
                 break;
             case GO_TO_FAR_BALL_WITH_IMAGE:
                 coneVisionLogic(State.DROP_MID_BALL);
-                if(NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) > ACCEPTED_DISTANCE_AWAY_FT*4){
+                if(NavUtils.getDistance(mGuessX,mGuessY,FAR_BALL_GPS_X,mFarBallGpsY) > SWITCH_BACK_DISTANCE){
+                    Log.d(TAG,"going back to gps");
                     setState(State.GO_TO_FAR_BALL_WITH_GPS);
                 }
                 break;
@@ -280,12 +284,14 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         }
 
 
-        if(mConeSize > MIN_SIZE_PERCENTAGE) {
+        if(mConeSize > DROP_PERCENT) {
             setState(dropAlready); //you win!!!
-        } else if (mConeLeftRightLocation < 0.4) { //You're leaning too far to the left., turn right.
+        } else if (mConeLeftRightLocation > 0.2) { //You're leaning too far to the left., turn right.
             sendWheelSpeed(mLeftStraightPwmValue, mRightStraightPwmValue-20);
-        } else if (mConeLeftRightLocation > 0.6) { //You're leaning too far to the right, turn left.
+        } else if (mConeLeftRightLocation < -0.2) { //You're leaning too far to the right, turn left.
             sendWheelSpeed(mLeftStraightPwmValue-20, mRightStraightPwmValue);
+        }else{
+            sendWheelSpeed(mLeftStraightPwmValue,mRightStraightPwmValue);
         }
 
     }
@@ -305,7 +311,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
      * When driving towards a target, using a seek strategy, consider that state a success when the
      * GPS distance to the target is less than (or equal to) this value.
      */
-    public static final double ACCEPTED_DISTANCE_AWAY_FT = 10.0; // Within 10 feet is close enough.
+    public static final double ACCEPTED_DISTANCE_AWAY_FT = 30.0; // Within 10 feet is close enough.
+    public static final double SWITCH_BACK_DISTANCE = 40;
 	
 	/**
      * Multiplier used during seeking to calculate a PWM value based on the turn amount needed.
@@ -320,7 +327,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     /**
      * PWM duty cycle values used with the drive straight dialog that make your robot drive straightest.
      */
-    public int mLeftStraightPwmValue = 215, mRightStraightPwmValue = 250;
+//    public int mLeftStraightPwmValue = 215, mRightStraightPwmValue = 250;
+
+    public int mLeftStraightPwmValue = 250, mRightStraightPwmValue = 250;
 
     private static final double PCTRL = 1;
 	// ------------------------ End of Driving area ------------------------------
@@ -687,11 +696,11 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     }
 
     public void handleFakeGpsF1(View view) {
-        onLocationChanged(209, 50, 0, null);  // Out of range so ignored.
+        onLocationChanged(50, 30, 0, null);  // Out of range so ignored.
     }
 
     public void handleFakeGpsF2(View view) {
-        onLocationChanged(231, 50, 135, null);  // Within range
+        onLocationChanged(50, 0, 135, null);  // Within range
     }
 
     public void handleFakeGpsF3(View view) {
