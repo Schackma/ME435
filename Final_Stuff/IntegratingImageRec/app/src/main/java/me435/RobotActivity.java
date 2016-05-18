@@ -1,14 +1,14 @@
 package me435;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.WindowManager;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /** 
  * This class is intended to be subclasses by your main activity. It subclasses
@@ -106,7 +106,7 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
   protected double mGuessX, mGuessY;
 
   /** Simple default robot speed used to determine the guess XY (adjust as necessary). */
-  public static final double DEFAULT_SPEED_FT_PER_SEC = 3.3;
+  public static final double DEFAULT_SPEED_FT_PER_SEC = 1;
 
   /** Current wheel duty cycle. Note always use sendWheelSpeed for robot commands. */
   protected int mLeftDutyCycle, mRightDutyCycle;
@@ -209,8 +209,9 @@ public class RobotActivity extends AccessoryActivity implements FieldGpsListener
     // If the vehicle is currently going straight and heading is present.
     if (heading < 180.0 && heading > -180.0) {
       mCurrentGpsHeading = heading;
+      mFieldOrientation.setCurrentFieldHeading(mCurrentGpsHeading);
       if (mMovingStraight) {
-        mFieldOrientation.setCurrentFieldHeading(mCurrentGpsHeading);
+//        mFieldOrientation.setCurrentFieldHeading(mCurrentGpsHeading);
         if (mTalkingGps && (System.currentTimeMillis() - mLastTalkTime > 3000)) {
 		  mLastTalkTime = System.currentTimeMillis();
           mTts.speak("" + (int) heading);

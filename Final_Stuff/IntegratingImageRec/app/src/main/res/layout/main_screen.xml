@@ -133,7 +133,7 @@
         style="@style/DisplayText"
         android:layout_below="@+id/state_time_label"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="GPS info:" />
 
     <TextView
@@ -148,7 +148,7 @@
         style="@style/DisplayText"
         android:layout_below="@+id/gps_label"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="Orientation:" />
 
     <TextView
@@ -198,7 +198,7 @@
         style="@style/DisplayText"
         android:layout_below="@+id/set_sensor_button_table"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="Guess XY:" />
 
     <TextView
@@ -214,7 +214,7 @@
         android:id="@+id/left_right_location_label"
         style="@style/DisplayText"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/guess_location_label"
@@ -234,7 +234,7 @@
         android:id="@+id/top_bottom_location_label"
         style="@style/DisplayText"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/left_right_location_label"
@@ -254,7 +254,7 @@
         android:id="@+id/size_percentage_label"
         style="@style/DisplayText"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_bottom_location_label"
@@ -276,7 +276,7 @@
         android:id="@+id/time_since_last_gps_reading_label"
         android:text="Time since last GPS reading with heading: "
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/size_percentage_label" />
@@ -323,10 +323,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Golf ball Calibration"
-        android:id="@+id/button"
+        android:id="@+id/calibration_button"
         android:onClick="handleGolfBallCalibration"
-        android:layout_below="@+id/imageButton1"
-        android:layout_alignRight="@+id/right_duty_cycle_textview"
-        android:layout_alignEnd="@+id/right_duty_cycle_textview" />
-
+        android:layout_above="@+id/match_time_textview"
+        android:layout_alignRight="@+id/time_since_last_gps_reading_label" />
 </RelativeLayout>
