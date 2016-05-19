@@ -22,7 +22,8 @@
         <item >GO_TO_FAR_BALL_WITH_IMAGE</item>
         <item >DROP_FAR_BALL</item>
         <item>DROP_MID_BALL</item>
-        <item >DRIVE_TOWARDS_HOME</item>
+        <item >DRIVE_TOWARDS_HOME_GPS</item>
+        <item>DRIVE_TOWARDS_HOME_IMAGE</item>
         <item >WAIT_FOR_PICKUP</item>
         <item >FIND_HEADING</item>
         <item>GIVE_UP1</item>

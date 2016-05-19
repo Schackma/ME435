@@ -49,7 +49,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         GO_TO_FAR_BALL_WITH_IMAGE,
         DROP_FAR_BALL,
         DROP_MID_BALL,
-        DRIVE_TOWARDS_HOME,
+        DRIVE_TOWARDS_HOME_GPS,
+        DRIVE_TOWARDS_HOME_IMAGE,
         WAIT_FOR_PICKUP,
         FIND_HEADING,
         GIVE_UP1,
@@ -212,6 +213,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case DROP_NEAR_BALL:
                 //handled in setState
+                sendWheelSpeed(0,0);
                 triesForCone=0; //reset so far ball has 3 tries
                 break;
             case GO_TO_FAR_BALL_WITH_GPS:
@@ -229,14 +231,17 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 break;
             case DROP_FAR_BALL:
                 //handled in set state
+                sendWheelSpeed(0,0);
                 triesForCone=0; //reset so go home doesn't break
                 break;
-            case DRIVE_TOWARDS_HOME:
-                complexMove(0,0, State.WAIT_FOR_PICKUP,null);
+            case DRIVE_TOWARDS_HOME_GPS:
+                complexMove(0,0, State.DRIVE_TOWARDS_HOME_IMAGE,null);
                 break;
+            case DRIVE_TOWARDS_HOME_IMAGE:
+                coneVisionLogic(State.WAIT_FOR_PICKUP);
             case WAIT_FOR_PICKUP:
                 if(getStateTimeMs() > PICKUP_THRESHOLD){
-                    setState(State.DRIVE_TOWARDS_HOME);
+                    setState(State.DRIVE_TOWARDS_HOME_GPS);
                 }
                 break;
             case FIND_HEADING:
@@ -281,7 +286,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
 
     public void coneVisionLogic(State dropAlready) {
         if(!mConeFound){
-            sendWheelSpeed((int)(-mLeftStraightPwmValue),(int)(mRightStraightPwmValue));
+            sendWheelSpeed((int).5*mLeftStraightPwmValue,mRightStraightPwmValue);
             if(getStateTimeMs() > FIND_CONE_TIME){
                 setState(dropAlready);
             }
@@ -292,9 +297,9 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         if(mConeSize > DROP_PERCENT) {
             setState(dropAlready); //you win!!!
         } else if (mConeLeftRightLocation > 0.2) { //You're leaning too far to the left., turn right.
-            sendWheelSpeed(mLeftStraightPwmValue, mRightStraightPwmValue-20);
+            sendWheelSpeed(mLeftStraightPwmValue, mRightStraightPwmValue-40);
         } else if (mConeLeftRightLocation < -0.2) { //You're leaning too far to the right, turn left.
-            sendWheelSpeed(mLeftStraightPwmValue-20, mRightStraightPwmValue);
+            sendWheelSpeed(mLeftStraightPwmValue-40, mRightStraightPwmValue);
         }else{
             sendWheelSpeed(mLeftStraightPwmValue,mRightStraightPwmValue);
         }
@@ -416,8 +421,10 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
             case DROP_MID_BALL:
                 sendWheelSpeed(0,0);
                 mScripts.midBallScript();
-            case DRIVE_TOWARDS_HOME:
+            case DRIVE_TOWARDS_HOME_GPS:
 //                mScripts.driveTowardsHomeScript();
+                break;
+            case DRIVE_TOWARDS_HOME_IMAGE:
                 break;
             case WAIT_FOR_PICKUP:
                 sendWheelSpeed(0, 0);
@@ -427,21 +434,21 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 sendWheelSpeed(mLeftStraightPwmValue,mRightStraightPwmValue);
                 break;
             case GIVE_UP1:
-                mScripts.removeBallAtLocation(mNearBallLocation,state.GIVE_UP2);
+                updateMissionStrategyVariables();
+                mScripts.removeBallAtLocation(mNearBallLocation,State.GIVE_UP2);
                 break;
             case GIVE_UP2:
                 if (mWhiteBallLocation !=0){
-                mScripts.removeBallAtLocation(mWhiteBallLocation,state.GIVE_UP3);
+                mScripts.removeBallAtLocation(mWhiteBallLocation,State.GIVE_UP3);
                 }else{
-                    setState(state.GIVE_UP3);
+                    setState(State.GIVE_UP3);
                 }
                 break;
             case GIVE_UP3:
-                mScripts.removeBallAtLocation(mFarBallLocation,state.GIVE_UP4);
+                mScripts.removeBallAtLocation(mFarBallLocation,State.GIVE_UP4);
                 break;
             case GIVE_UP4:
                 mScripts.driveTowardsHomeScript();
-                setState(State.READY_FOR_MISSION);
         }
         mState = newState;
     }
@@ -598,6 +605,7 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     }
 
     public void handleSetState(View view){
+        updateMissionStrategyVariables();
         new DialogFragment() {
             @Override
             public Dialog onCreateDialog(Bundle savedInstanceState) {

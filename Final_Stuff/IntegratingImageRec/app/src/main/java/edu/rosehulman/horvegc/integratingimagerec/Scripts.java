@@ -21,13 +21,13 @@ public class Scripts {
 
     private int home[] = {0,90,0,-90,90};
 
-    private int killRight[] = {-13,39,-87,-155,90};
-    private int killMid[] = {9, 39, -87, -155, 90};
-    private int killLeft[] = {47,39,-87,-155,90};
+    private int killRight[] = {-24,29,-87,-155,90};
+    private int killMid[] = {9, 32, -87, -155, 90};
+    private int killLeft[] = {30,37,-87,-155,90};
 
-    private int boopRight[] = { -13,17, -87,-178,90 };
+    private int boopRight[] = { -52,29, -87,-155,90 };
     private int boopMid[] ={9,17,-87,-178,90};
-    private int boopLeft[] = {47,17,-87,-180,90};
+    private int boopLeft[] = {51,37,-87,-155,90};
 
 
     /** Reference to the primary activity. */
@@ -70,7 +70,7 @@ public class Scripts {
 
     /** Script to drop off the far ball. */
     public void farBallScript() {
-        removeBallAtLocation(mGolfBallDeliveryActivity.mFarBallLocation, GolfBallDeliveryActivity.State.DRIVE_TOWARDS_HOME);
+        removeBallAtLocation(mGolfBallDeliveryActivity.mFarBallLocation, GolfBallDeliveryActivity.State.DRIVE_TOWARDS_HOME_GPS);
     }
 
     public void midBallScript(){
@@ -198,6 +198,7 @@ public class Scripts {
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Toast.makeText(mGolfBallDeliveryActivity,"I'm done",Toast.LENGTH_SHORT).show();
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
                 mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.READY_FOR_MISSION);}
         }, 2000);

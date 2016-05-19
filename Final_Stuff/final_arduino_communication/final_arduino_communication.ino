@@ -6,7 +6,7 @@
 #include <WildThumperCom.h>
 #include <GolfBallStand.h>
 
-#define TEAM_NUMBER 3  // Replace this with your team number.
+#define TEAM_NUMBER 4  // Replace this with your team number.
 
 char manufacturer[] = "Rose-Hulman";
 char model[] = "Final Golf Ball Delivery";  // Change to your app name.
