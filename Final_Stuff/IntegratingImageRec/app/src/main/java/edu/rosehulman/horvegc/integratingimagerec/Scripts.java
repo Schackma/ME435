@@ -194,17 +194,12 @@ public class Scripts {
     }
 
     public void driveTowardsHomeScript() {
-        double distanceToHome = NavUtils.getDistance(15, 0, 90, 50);
-        long driveTimeToHomeMs = (long) (distanceToHome / RobotActivity.DEFAULT_SPEED_FT_PER_SEC * 1000);
-        driveTimeToHomeMs = 2000; // Make this mock script not take so long.
         mGolfBallDeliveryActivity.sendWheelSpeed(-mGolfBallDeliveryActivity.mLeftStraightPwmValue, -mGolfBallDeliveryActivity.mRightStraightPwmValue);
-        Toast.makeText(mGolfBallDeliveryActivity,"stupid ass bitch",Toast.LENGTH_SHORT).show();
         mCommandHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(mGolfBallDeliveryActivity,"fuck this",Toast.LENGTH_SHORT).show();
                 mGolfBallDeliveryActivity.sendWheelSpeed(0, 0);
                 mGolfBallDeliveryActivity.setState(GolfBallDeliveryActivity.State.READY_FOR_MISSION);}
-        }, driveTimeToHomeMs);
+        }, 2000);
     }
 }

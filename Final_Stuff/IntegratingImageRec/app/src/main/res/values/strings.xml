@@ -25,6 +25,10 @@
         <item >DRIVE_TOWARDS_HOME</item>
         <item >WAIT_FOR_PICKUP</item>
         <item >FIND_HEADING</item>
+        <item>GIVE_UP1</item>
+        <item>GIVE_UP2</item>
+        <item>GIVE_UP3</item>
+        <item>GIVE_UP4</item>
     </string-array>
 
 

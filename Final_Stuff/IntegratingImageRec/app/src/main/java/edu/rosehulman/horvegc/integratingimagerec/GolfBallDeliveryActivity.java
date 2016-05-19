@@ -51,7 +51,11 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
         DROP_MID_BALL,
         DRIVE_TOWARDS_HOME,
         WAIT_FOR_PICKUP,
-        FIND_HEADING
+        FIND_HEADING,
+        GIVE_UP1,
+        GIVE_UP2,
+        GIVE_UP3,
+        GIVE_UP4
     }
 
     /**
@@ -422,6 +426,22 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
                 prevState = mState;
                 sendWheelSpeed(mLeftStraightPwmValue,mRightStraightPwmValue);
                 break;
+            case GIVE_UP1:
+                mScripts.removeBallAtLocation(mNearBallLocation,state.GIVE_UP2);
+                break;
+            case GIVE_UP2:
+                if (mWhiteBallLocation !=0){
+                mScripts.removeBallAtLocation(mWhiteBallLocation,state.GIVE_UP3);
+                }else{
+                    setState(state.GIVE_UP3);
+                }
+                break;
+            case GIVE_UP3:
+                mScripts.removeBallAtLocation(mFarBallLocation,state.GIVE_UP4);
+                break;
+            case GIVE_UP4:
+                mScripts.driveTowardsHomeScript();
+                setState(State.READY_FOR_MISSION);
         }
         mState = newState;
     }
@@ -736,6 +756,8 @@ public class GolfBallDeliveryActivity extends ImageRecActivity {
     public void handleZeroHeading(View view) {
         mFieldOrientation.setCurrentFieldHeading(0);
     }
+
+    public void handleGiveUp(View vew){setState(State.GIVE_UP1);}
 
     public void handleGoOrMissionComplete(View view) {
         if (mState == State.READY_FOR_MISSION) {

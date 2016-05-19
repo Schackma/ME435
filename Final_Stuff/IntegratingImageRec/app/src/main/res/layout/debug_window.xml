@@ -112,5 +112,18 @@
         android:layout_alignParentStart="true"
         android:onClick ="handleSetState"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="500sp"
+        android:text="GIVE UP"
+        android:id="@+id/give_up_button"
+        android:layout_below="@+id/set_state_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="75dp"
+        android:background="#FF0000"
+        android:textSize="50dp"
+        android:onClick="handleGiveUp"/>
+
 
 </RelativeLayout>
